@@ -1,0 +1,334 @@
+/**
+ *
+ * Gida Menu - Global (SCSS)
+ *
+ * @author Takuto Yanagida
+ * @version 2021-07-07
+ *
+ */
+
+
+@import 'mixin';
+
+
+.gida-menu-global {
+	--bar-item-color-bg-hover: #eee;
+	--bar-item-padding       : 0.75rem 1rem;
+	--bar-item-width         : unset;
+	--bar-item-height        : 3rem;
+	--bar-item-mark-color    : #000;
+
+	@include for-tp-o {
+		--bar-item-padding: 0.75rem 1.5rem;
+		--bar-item-width  : 7rem;
+	}
+	@include for-tl {
+		--bar-item-padding: 0.75rem 2rem;
+		--bar-item-width  : 8rem;
+	}
+
+	--panel-color-bg           : #fff;
+	--panel-shadow             : 0 4px 8px 0 rgba(0, 0, 0, 0.25);
+	--panel-item-height        : 3rem;
+	--panel-item-padding       : 0.25rem 1rem;
+	--panel-item-color-bg-hover: #eee;
+
+	@media screen and (min-width: 600px) {  // for-ta
+		--panel-item-padding: 1rem;
+	}
+}
+
+
+// -----------------------------------------------------------------------------
+
+
+.gida-menu-global {
+	position  : relative;
+	box-sizing: border-box;
+	*,
+	*::before,
+	*::after {
+		box-sizing: inherit;
+		margin    : 0;
+		padding   : 0;
+	}
+
+	li,
+	a, button, label {
+		transition: all 0.2s ease;
+		&::before, &::after { transition: all 0.2s ease; }
+	}
+	a, button, label {
+		&:focus:not(:focus-visible) { outline: 0; }
+		user-select: none;
+	}
+	a { text-decoration: none; }
+	button {
+		appearance: none;
+		border    : inherit;
+		background: inherit;
+		color     : inherit;
+		font      : inherit;
+	}
+	ul {
+		list-style-type: none;
+	}
+}
+
+
+// -----------------------------------------------------------------------------
+
+
+.gida-menu-global-bar {
+	display   : flex;
+	max-height: var(--bar-item-height);
+	overflow-x: scroll;
+	overflow-y: hidden;
+
+	scroll-behavior: smooth;
+	&::-webkit-scrollbar { display: none; }
+	scrollbar-width: none;
+
+	.menu {
+		margin: auto;
+	}
+
+	&::before,
+	&::after {
+		content : '';
+		position: absolute;
+		top     : 0;
+		bottom  : 0;
+		width   : 16px;
+		z-index : 1;
+
+		pointer-events: none;
+
+		opacity   : 0;
+		transition: opacity 0.2s;
+	}
+	&::before {
+		background-image: radial-gradient(farthest-side at center left,  rgba(#000, 0.35), rgba(#000, 0));
+		left: 0;
+	}
+	&::after {
+		background-image: radial-gradient(farthest-side at center right,  rgba(#000, 0.35), rgba(#000, 0));
+		right: 0;
+	}
+	&.scrollable-left::before { opacity: 1; }
+	&.scrollable-right::after { opacity: 1; }
+
+	.gida-menu-global.box-shadow & {
+		&::before { background-image: linear-gradient(to left,   rgba(#000, 0), rgba(#000, 0.25)); }
+		&::after  { background-image: linear-gradient(to right,  rgba(#000, 0), rgba(#000, 0.25)); }
+	}
+
+	.scroll-left,
+	.scroll-right {
+		position: absolute;
+		top     : 0;
+		bottom  : 0;
+		width   : 32px;
+		z-index : 1;
+
+		transition: all 0.2s ease;
+		opacity: 0;
+		pointer-events: none;
+
+		background-image: radial-gradient(farthest-side at center left,  rgba(#fff, 0.90), rgba(#fff, 0));
+
+		&::before {
+			content : '';
+			position: absolute;
+			width   : 1rem;
+			height  : 1rem;
+			top     : 50%;
+			left    : 50%;
+
+			border-top : 2px solid var(--bar-item-mark-color);
+			border-left: 2px solid var(--bar-item-mark-color);
+
+			transform: translate(-50%, -50%) rotate(-45deg);
+		}
+	}
+	.scroll-left {
+		left: 0;
+	}
+	.scroll-right {
+		right: 0;
+		transform: rotate(180deg);
+	}
+	&:not(.touched):hover.scrollable-left .scroll-left {
+		opacity: 1;
+		pointer-events: auto;
+	}
+	&:not(.touched):hover.scrollable-right .scroll-right {
+		opacity: 1;
+		pointer-events: auto;
+	}
+}
+
+
+// -----------------------------------------------------------------------------
+
+
+.gida-menu-global-bar {
+
+	.menu {  // ul
+		display: inline-flex;
+	}
+
+	.menu > li {
+		position : relative;
+		flex-grow: 1;
+
+		> a, > button {
+			position: relative;
+
+			display        : flex;
+			flex-direction : column;
+			justify-content: center;
+
+			width     : 100%;
+			min-width : var(--bar-item-width);
+			min-height: var(--bar-item-height);
+			padding   : var(--bar-item-padding);
+
+			white-space: nowrap;
+		}
+
+		> button::after {
+			display: inline-block;
+
+			content : '';
+			position: absolute;
+			width   : 0;
+			height  : 0;
+			left    : 50%;
+			bottom  : 0.1rem;
+
+			border    : 0.35rem solid transparent;
+			border-top: 0.35rem solid var(--bar-item-mark-color);
+
+			transform: translateX(-50%) scale(0.69, 1) translateY(0.25rem);
+		}
+
+		&.opened {
+			> button {
+				background-color: var(--bar-item-color-bg-hover);
+			}
+			> button::after {
+				transform: translateX(-50%) scale(0.69, -1) translateY(0.15rem);
+			}
+		}
+
+		&.page-ancestor,
+		&.menu-ancestor,
+		&.current {
+			a, button {
+				pointer-events : none;
+				text-decoration: underline;
+			}
+		}
+	}
+
+	&:not(.touched) .menu > li:hover {
+		a, button {
+			background-color: var(--bar-item-color-bg-hover);
+		}
+	}
+}
+
+
+// -----------------------------------------------------------------------------
+
+
+.gida-menu-global-panels {
+	position: relative;
+
+	.gida-menu-global-panel {
+		display: none;
+		&.active { display: block; }
+		&.opened { display: block; }
+
+		opacity: 0;
+		&.active.opened { opacity: 1; }
+
+		&.active.opened       { transition: opacity 0.20s ease; }
+		&:not(.active).opened { transition: opacity 0.25s ease 0.1s; }
+	}
+}
+
+
+// -----------------------------------------------------------------------------
+
+
+.gida-menu-global-panel {
+	position: absolute;
+	top     : 0;
+	left    : 0;
+	right   : 0;
+	z-index : 1000;
+
+	.gida-menu-global.pulldown & {
+		@include for-ta {
+			width: fit-content;
+		}
+	}
+
+	background-color: var(--panel-color-bg);
+	box-shadow      : var(--panel-shadow);
+
+	> .menu {  // ul
+		margin: auto;
+
+		display        : flex;
+		justify-content: center;
+
+		.gida-menu-global.pulldown & {
+			flex-direction: column;
+		}
+		min-width: 100%;
+
+		@include for-ta {
+			flex-wrap     : wrap;
+			flex-direction: row;
+			min-width     : unset;
+		}
+	}
+
+	> .menu > li {
+		position: relative;
+
+		a, label {
+			display        : flex;
+			flex-direction : column;
+			align-items    : flex-start;
+			justify-content: center;
+
+			min-height: var(--panel-item-height);
+			padding   : var(--panel-item-padding);
+
+			> div {
+				display: inline-block;
+				text-align: left;
+			}
+			span { display: inline-block; }
+		}
+
+		&.page-ancestor,
+		&.menu-ancestor,
+		&.current {
+			a, label {
+				pointer-events : none;
+				text-decoration: underline;
+			}
+		}
+	}
+
+	.gida-menu-global-panels:not(.touched) & .menu > li:hover {
+		a, label {
+			background-color: var(--panel-item-color-bg-hover);
+		}
+	}
+}

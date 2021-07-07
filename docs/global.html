@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta charset="utf-8">
+<title>Gida Menu - Global</title>
+<meta name="description" content="">
+<meta name="author" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="shortcut icon" href="">
+<link rel="stylesheet" href="css/style.min.css?v215258t">
+<link rel="stylesheet" href="css/global.min.css?v215258t">
+<script src="js/global.min.js?v215258t"></script>
+</head>
+<body>
+<div class="content">
+
+	<h1>Gida Menu - Global <small>v215258t</small></h1>
+	<nav>
+		<a href="index.html">Go Back</a>
+	</nav>
+
+	<div class="frame-global">
+		<nav id="mg0" class="gida-menu-global pulldown" role="navigation">
+			<div class="gida-menu-global-bar">
+				<ul class="menu">
+					<li><a href="#"><div>Menu Item 1</div></a></li>
+					<li><a href="#"><div>Menu Item 2</div></a></li>
+					<li><button data-panel="mg1-panel-1"><div>Menu Item 3</div></button></li>
+					<li><button data-panel="mg1-panel-2"><div>Menu Item 4</div></button></li>
+					<li><a href="#"><div>Menu Item 5</div></a></li>
+				</ul>
+			</div>
+			<div class="gida-menu-global-panels screen-only">
+				<div id="mg1-panel-1" class="gida-menu-global-panel">
+					<ul class="menu">
+						<li class="current"><a href="#"><div>Current Item</div></a></li>
+						<li><a href="#"><div>Menu Item 6</div></a></li>
+					</ul>
+				</div>
+				<div id="mg1-panel-2" class="gida-menu-global-panel">
+					<ul class="menu">
+						<li><a href="#"><div>Menu Item 7</div></a></li>
+						<li><a href="#"><div>Menu Item 8</div></a></li>
+						<li><a href="#"><div>Menu Item 9</div></a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<script>GIDA.menu_global('mg0', { autoClose: true });</script>
+	</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,276 @@
+/**
+ *
+ * Gida Menu - Priority (SCSS)
+ *
+ * @author Takuto Yanagida
+ * @version 2021-07-07
+ *
+ */
+
+
+@import 'mixin';
+
+
+.gida-menu-priority {
+	--bar-item-color-bg-hover: #eee;
+	--bar-item-padding       : 0.75rem 1rem;
+	--bar-item-width         : unset;
+	--bar-item-height        : 3rem;
+	--bar-item-mark-color    : #000;
+
+	@include for-tp-o {
+		--bar-item-padding: 0.75rem 1.5rem;
+		--bar-item-width  : 7rem;
+	}
+	@include for-tl {
+		--bar-item-padding: 0.75rem 1.75rem;
+		--bar-item-width  : 8rem;
+	}
+
+	--panel-offset: 0.25rem;
+
+	--panel-color-bg           : #fff;
+	--panel-shadow             : 0 4px 8px 0 rgba(0, 0, 0, 0.25);
+	--panel-item-height        : 3rem;
+	--panel-item-padding       : 0.25rem 1rem;
+	--panel-item-color-bg-hover: #eee;
+
+	@media screen and (min-width: 600px) {  // for-ta
+		--panel-item-padding: 1rem;
+	}
+}
+
+
+// -----------------------------------------------------------------------------
+
+
+.gida-menu-priority {
+	position  : relative;
+	box-sizing: border-box;
+	*,
+	*::before,
+	*::after {
+		box-sizing: inherit;
+		margin    : 0;
+		padding   : 0;
+	}
+
+	li,
+	a, button, label {
+		transition: all 0.2s ease;
+		&::before, &::after { transition: all 0.2s ease; }
+	}
+	a, button, label {
+		&:focus:not(:focus-visible) { outline: 0; }
+		user-select: none;
+	}
+	a { text-decoration: none; }
+	button {
+		appearance: none;
+		border    : inherit;
+		background: inherit;
+		color     : inherit;
+		font      : inherit;
+	}
+	ul {
+		list-style-type: none;
+	}
+
+
+	// -------------------------------------------------------------------------
+
+
+	overflow-y: visible;
+	overflow-x: hidden;
+	opacity   : 0;
+	&.ready {
+		transition: opacity 0.1s;
+		overflow-x: visible;
+		opacity   : 1;
+	}
+}
+
+
+// -----------------------------------------------------------------------------
+
+
+.gida-menu-priority-bar {
+	display   : flex;
+	max-height: var(--bar-item-height);
+}
+
+
+// -----------------------------------------------------------------------------
+
+
+.gida-menu-priority-bar {
+
+	.menu {  // ul
+		display  : inline-flex;
+		flex-wrap: nowrap;
+	}
+
+	.menu > li {
+		position : relative;
+		flex-grow: 1;
+
+		> a, > button {
+			position: relative;
+
+			display        : flex;
+			flex-direction : column;
+			justify-content: center;
+
+			min-height: var(--bar-item-height);
+
+			white-space: nowrap;
+		}
+		> a {
+			width     : 100%;
+			min-width : var(--bar-item-width);
+			padding   : var(--bar-item-padding);
+		}
+		> button {
+			min-width: var(--bar-item-height);
+			max-width: var(--bar-item-height);
+		}
+
+		> button::after {
+			display: inline-block;
+
+			content : '';
+			position: absolute;
+			width   : 0;
+			height  : 0;
+			left    : 50%;
+			bottom  : 40%;
+
+			border    : 0.35rem solid transparent;
+			border-top: 0.35rem solid var(--bar-item-mark-color);
+
+			transform: translateX(-50%) scale(0.69, 1) translateY(0.25rem);
+		}
+
+		&.opened {
+			> button {
+				background-color: var(--bar-item-color-bg-hover);
+			}
+			> button::after {
+				transform: translateX(-50%) scale(0.69, -1) translateY(0.15rem);
+			}
+		}
+
+		&.page-ancestor,
+		&.menu-ancestor,
+		&.current {
+			a, button {
+				pointer-events : none;
+				text-decoration: underline;
+			}
+		}
+	}
+
+	&:not(.touched) .menu > li:hover {
+		a, button {
+			background-color: var(--bar-item-color-bg-hover);
+		}
+	}
+}
+
+
+// -----------------------------------------------------------------------------
+
+
+.gida-menu-priority-panels {
+	position: relative;
+
+	.gida-menu-priority-panel {
+		display: none;
+		&.active { display: block; }
+		&.opened { display: block; }
+
+		opacity: 0;
+		&.active.opened { opacity: 1; }
+
+		&.active.opened       { transition: opacity 0.20s ease; }
+		&:not(.active).opened { transition: opacity 0.25s ease 0.1s; }
+	}
+	&.pulldown .gida-menu-priority-panel {
+		@include for-ta {
+			width: fit-content;
+		}
+	}
+}
+
+
+// -----------------------------------------------------------------------------
+
+
+.gida-menu-priority-panel {
+	position: absolute;
+	top     : 0;
+	right   : 0;
+	z-index : 1000;
+
+	.gida-menu-priority.pulldown & {
+		@include for-ta {
+			width: fit-content;
+		}
+	}
+
+	background-color: var(--panel-color-bg);
+	box-shadow      : var(--panel-shadow);
+
+	> .menu {  // ul
+		margin: auto;
+
+		display        : flex;
+		justify-content: center;
+
+		.gida-menu-priority.pulldown & {
+			flex-direction: column;
+		}
+		min-width: 100%;
+
+		@include for-ta {
+			flex-wrap     : wrap;
+			flex-direction: row;
+			min-width     : unset;
+		}
+	}
+
+	> .menu > li {
+		position: relative;
+
+		a, label {
+			display        : flex;
+			flex-direction : column;
+			align-items    : flex-start;
+			justify-content: center;
+
+			min-height: var(--panel-item-height);
+			padding   : var(--panel-item-padding);
+
+			> div {
+				display: inline-block;
+				text-align: left;
+			}
+			span { display: inline-block; }
+		}
+
+		&.page-ancestor,
+		&.menu-ancestor,
+		&.current {
+			a, label {
+				pointer-events : none;
+				text-decoration: underline;
+			}
+		}
+	}
+
+	.gida-menu-priority-panels:not(.touched) & .menu > li:hover {
+		a, label {
+			background-color: var(--panel-item-color-bg-hover);
+		}
+	}
+}

@@ -1,0 +1,43 @@
+/**
+ *
+ * Gida Menu - Sample (SCSS)
+ *
+ * @author Takuto Yanagida
+ * @version 2021-07-07
+ *
+ */
+
+
+@use "sass:math";
+
+
+:root {
+	font-size  : 16px;
+	font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+}
+
+body {
+	padding-top   : 4vh;
+	padding-bottom: 4vh;
+	overflow-x    : hidden;
+
+	min-height: 200vh;
+}
+
+pre {
+	margin: 0;
+	overflow-x: auto;
+}
+
+.content {
+	margin   : { left: auto; right: auto; }
+	max-width: 48rem;
+	width    : calc(100% - 2vw);
+
+	color: hsla(0, 0%, 0%, 0.75);
+}
+
+.frame-global,
+.frame-priority {
+	margin-top: 2rem;
+}
