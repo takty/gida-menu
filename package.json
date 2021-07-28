@@ -1,6 +1,6 @@
 {
 	"name": "gida-menu",
-	"version": "0.21.7",
+	"version": "1.21.7",
 	"description": "Flexible Menu Component",
 	"author": "Takuto Yanagida",
 	"main": "gulpfile.js",
