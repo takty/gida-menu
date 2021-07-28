@@ -3,7 +3,7 @@
  * Gulpfile
  *
  * @author Takuto Yanagida
- * @version 2021-07-07
+ * @version 2021-07-28
  *
  */
 
@@ -19,13 +19,13 @@ const { makeJsTask, makeSassTask, makeCopyTask, makeTimestampTask } = require('.
 
 
 const js = gulp.parallel(
-	makeJsTask('./src/global.js'),
-	makeJsTask('./src/priority.js'),
+	makeJsTask('./src/global.js',   './dist/js'),
+	makeJsTask('./src/priority.js', './dist/js'),
 );
 
 const sass = gulp.parallel(
-	makeSassTask('./src/global.scss'),
-	makeSassTask('./src/priority.scss'),
+	makeSassTask('./src/global.scss',   './dist/css'),
+	makeSassTask('./src/priority.scss', './dist/css'),
 );
 
 exports.build = gulp.parallel(js, sass);
@@ -42,16 +42,9 @@ exports.default = gulp.series(exports.build, watch);
 // -----------------------------------------------------------------------------
 
 
-const doc_js = gulp.series(js, makeCopyTask([
-	'dist/**/global.min.js*(.map)',
-	'dist/**/priority.min.js*(.map)',
-], './docs/js'));
+const doc_js = gulp.series(js, makeCopyTask(['dist/js/*'], './docs/js'));
 
-
-const doc_css = gulp.series(sass, makeCopyTask([
-	'dist/**/global.min.css*(.map)',
-	'dist/**/priority.min.css*(.map)',
-], './docs/css'));
+const doc_css = gulp.series(sass, makeCopyTask(['dist/css/*'], './docs/css'));
 
 const doc_sass = makeSassTask('docs/style.scss', './docs/css');
 
