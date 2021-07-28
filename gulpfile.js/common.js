@@ -3,7 +3,7 @@
  * Common functions for gulp process
  *
  * @author Takuto Yanagida
- * @version 2021-07-07
+ * @version 2021-07-28
  *
  */
 
@@ -42,7 +42,7 @@ function makeJsTask(src, dest = './dist', base = null) {
 		.pipe($.plumber())
 		.pipe($.preprocess())
 		.pipe($.babel())
-		// .pipe($.terser())
+		.pipe($.terser())
 		.pipe($.rename({ extname: '.min.js' }))
 		.pipe($.changed(dest, { hasChanged: $.changed.compareContents }))
 		.pipe(gulp.dest(dest, { sourcemaps: '.' }));
