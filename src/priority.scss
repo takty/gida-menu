@@ -3,7 +3,7 @@
  * Gida Menu - Priority (SCSS)
  *
  * @author Takuto Yanagida
- * @version 2021-07-07
+ * @version 2021-09-22
  *
  */
 
@@ -57,7 +57,7 @@
 
 	li,
 	a, button, label {
-		transition: all 0.2s ease;
+		transition: background-color 0.2s ease;
 		&::before, &::after { transition: all 0.2s ease; }
 	}
 	a, button, label {
@@ -118,8 +118,7 @@
 			position: relative;
 
 			display        : flex;
-			flex-direction : column;
-			justify-content: center;
+			justify-content: flex-start;
 
 			min-height: var(--bar-item-height);
 
@@ -244,9 +243,7 @@
 
 		a, label {
 			display        : flex;
-			flex-direction : column;
-			align-items    : flex-start;
-			justify-content: center;
+			justify-content: flex-start;
 
 			min-height: var(--panel-item-height);
 			padding   : var(--panel-item-padding);
