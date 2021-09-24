@@ -3,7 +3,7 @@
  * Gida Menu - Global (JS)
  *
  * @author Takuto Yanagida
- * @version 2021-07-07
+ * @version 2021-09-24
  *
  */
 
@@ -56,7 +56,7 @@
 			this._isOpenedByHover = false;
 
 			this._bar         = this._root.querySelector(GlobalNav.SEL_NAV_BAR);
-			const menuItems   = this._bar.querySelectorAll('button[data-panel]');
+			const menuItems   = this._bar.querySelectorAll('button[data-panel]' + /**/', label[for]'/**/);
 			this._panelParent = this._root.querySelector(GlobalNav.SEL_NAV_PANEL_PARENT);
 			this._alignPanel  = this._root.classList.contains('pulldown');
 
@@ -89,7 +89,7 @@
 				document.addEventListener('click', () => { this.closeAll(); });
 			}
 			if (autoScroll) {
-				const mis = this._bar.querySelectorAll('a, button[data-panel]');
+				const mis = this._bar.querySelectorAll('a, button[data-panel]' + /**/', label[for]'/**/);
 				this.initializeAutoScroll(mis);
 			}
 		}
@@ -300,7 +300,7 @@
 					p.classList.remove(GlobalNav.CLS_ACTIVE);
 				}
 			} else {
-				const tar = item.dataset['panel'] ?? '';
+				const tar = item.dataset['panel'] ?? /**/item.getAttribute('for') ??/**/ '';
 				for (const p of this._panels) {
 					if (p.id === tar) {
 						p.classList.add(GlobalNav.CLS_ACTIVE);
@@ -325,7 +325,7 @@
 		}
 
 		itemToPanel(item) {
-			const tar = item.dataset['panel'] ?? '';
+			const tar = item.dataset['panel'] ?? /**/item.getAttribute('for') ??/**/ '';
 			if (tar) return document.getElementById(tar);
 			return null;
 		}
@@ -335,13 +335,13 @@
 
 
 		ensureInView(mi) {
-			const parent = mi.parentElement;
-			const right = parent.offsetLeft + parent.offsetWidth;
-			if (this._bar.offsetWidth < right) {
-				this._bar.scrollLeft = parent.offsetLeft - this._scrollViewOffset;
+			const l = mi.parentElement.offsetLeft;
+			const r = l + mi.parentElement.offsetWidth;
+			if (this._bar.scrollLeft + this._bar.offsetWidth < r) {
+				this._bar.scrollLeft = r - this._bar.offsetWidth + this._scrollViewOffset;
 			}
-			if (parent.offsetLeft < this._bar.scrollLeft) {
-				this._bar.scrollLeft = parent.offsetLeft - this._scrollViewOffset;
+			if (l < this._bar.scrollLeft) {
+				this._bar.scrollLeft = l - this._scrollViewOffset;
 			}
 		}
 

@@ -3,7 +3,7 @@
  * Gida Menu - Global (SCSS)
  *
  * @author Takuto Yanagida
- * @version 2021-07-07
+ * @version 2021-09-24
  *
  */
 
@@ -12,30 +12,22 @@
 
 
 .gida-menu-global {
-	--bar-item-color-bg-hover: #eee;
-	--bar-item-padding       : 0.75rem 1rem;
 	--bar-item-width         : unset;
 	--bar-item-height        : 3rem;
+	--bar-item-padding       : 0.75rem 1rem;
+	--bar-item-color-bg-hover: #eee;
 	--bar-item-mark-color    : #000;
 
-	@include for-tp-o {
-		--bar-item-padding: 0.75rem 1.5rem;
-		--bar-item-width  : 7rem;
-	}
-	@include for-tl {
-		--bar-item-padding: 0.75rem 2rem;
-		--bar-item-width  : 8rem;
-	}
+	--bar-scroll-shadow-start  : #{rgba(#000, 0.35)};
+	--bar-scroll-shadow-end    : #{rgba(#000, 0.00)};
+	--bar-scroll-scroller-start: #{rgba(#fff, 0.90)};
+	--bar-scroll-scroller-end  : #{rgba(#fff, 0.00)};
 
 	--panel-color-bg           : #fff;
 	--panel-shadow             : 0 4px 8px 0 rgba(0, 0, 0, 0.25);
 	--panel-item-height        : 3rem;
 	--panel-item-padding       : 0.25rem 1rem;
 	--panel-item-color-bg-hover: #eee;
-
-	@media screen and (min-width: 600px) {  // for-ta
-		--panel-item-padding: 1rem;
-	}
 }
 
 
@@ -55,7 +47,8 @@
 
 	li,
 	a, button, label {
-		transition: all 0.2s ease;
+		transition-duration: 0.2s;
+		transition-property: color, background-color;
 		&::before, &::after { transition: all 0.2s ease; }
 	}
 	a, button, label {
@@ -108,19 +101,19 @@
 		transition: opacity 0.2s;
 	}
 	&::before {
-		background-image: radial-gradient(farthest-side at center left,  rgba(#000, 0.35), rgba(#000, 0));
+		background-image: radial-gradient(farthest-side at center left, var(--bar-scroll-shadow-start), var(--bar-scroll-shadow-end));
 		left: 0;
 	}
 	&::after {
-		background-image: radial-gradient(farthest-side at center right,  rgba(#000, 0.35), rgba(#000, 0));
+		background-image: radial-gradient(farthest-side at center right, var(--bar-scroll-shadow-start), var(--bar-scroll-shadow-end));
 		right: 0;
 	}
 	&.scrollable-left::before { opacity: 1; }
 	&.scrollable-right::after { opacity: 1; }
 
 	.gida-menu-global.box-shadow & {
-		&::before { background-image: linear-gradient(to left,   rgba(#000, 0), rgba(#000, 0.25)); }
-		&::after  { background-image: linear-gradient(to right,  rgba(#000, 0), rgba(#000, 0.25)); }
+		&::before { background-image: linear-gradient(to left, var(--bar-scroll-shadow-start), var(--bar-scroll-shadow-end)); }
+		&::after  { background-image: linear-gradient(to right, var(--bar-scroll-shadow-start), var(--bar-scroll-shadow-end)); }
 	}
 
 	.scroll-left,
@@ -135,7 +128,7 @@
 		opacity: 0;
 		pointer-events: none;
 
-		background-image: radial-gradient(farthest-side at center left,  rgba(#fff, 0.90), rgba(#fff, 0));
+		background-image: radial-gradient(farthest-side at center left,  var(--bar-scroll-scroller-start), var(--bar-scroll-scroller-end));
 
 		&::before {
 			content : '';
@@ -182,6 +175,7 @@
 		position : relative;
 		flex-grow: 1;
 
+		/**/> label,/**/
 		> a, > button {
 			position: relative;
 
@@ -197,6 +191,7 @@
 			white-space: nowrap;
 		}
 
+		/**/> label::after,/**/
 		> button::after {
 			display: inline-block;
 
@@ -213,26 +208,26 @@
 			transform: translateX(-50%) scale(0.69, 1) translateY(0.25rem);
 		}
 
-		&.opened {
-			> button {
-				background-color: var(--bar-item-color-bg-hover);
-			}
-			> button::after {
-				transform: translateX(-50%) scale(0.69, -1) translateY(0.15rem);
+		&.current {
+			/**/label,/**/
+			a, button {
+				pointer-events : none;
 			}
 		}
 
-		&.page-ancestor,
-		&.menu-ancestor,
-		&.current {
-			a, button {
-				pointer-events : none;
-				text-decoration: underline;
+		&.opened {
+			/**/> label,/**/
+			> button {
+				background-color: var(--bar-item-color-bg-hover);
+				&::after {
+					transform: translateX(-50%) scale(0.69, -1) translateY(0.15rem);
+				}
 			}
 		}
 	}
 
-	&:not(.touched) .menu > li:hover {
+	&:not(.touched) .menu > li:not(.current):hover {
+		/**/label,/**/
 		a, button {
 			background-color: var(--bar-item-color-bg-hover);
 		}
@@ -288,6 +283,9 @@
 		.gida-menu-global.pulldown & {
 			flex-direction: column;
 		}
+		@include for-ph-o {
+			flex-direction: column;
+		}
 		min-width: 100%;
 
 		@include for-ta {
@@ -316,17 +314,14 @@
 			span { display: inline-block; }
 		}
 
-		&.page-ancestor,
-		&.menu-ancestor,
 		&.current {
 			a, label {
 				pointer-events : none;
-				text-decoration: underline;
 			}
 		}
 	}
 
-	.gida-menu-global-panels:not(.touched) & .menu > li:hover {
+	.gida-menu-global-panels:not(.touched) & .menu > li:not(.current):hover {
 		a, label {
 			background-color: var(--panel-item-color-bg-hover);
 		}
