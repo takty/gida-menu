@@ -3,7 +3,7 @@
  * Gida Menu - Global (JS)
  *
  * @author Takuto Yanagida
- * @version 2021-09-24
+ * @version 2021-09-25
  *
  */
 
@@ -35,9 +35,10 @@
 		static CLS_MENU_ANCESTOR = 'menu-ancestor';
 		static CLS_PAGE_ANCESTOR = 'page-ancestor';
 
-		static CLS_TOUCHED = 'touched';
-		static CLS_ACTIVE  = 'active';
-		static CLS_OPENED  = 'opened';
+		static CLS_HOVER  = 'hover';
+		static CLS_TOUCH  = 'touch';
+		static CLS_ACTIVE = 'active';
+		static CLS_OPENED = 'opened';
 
 		constructor(id, opts) {
 			this._root = id ? document.getElementById(id) : document.querySelector('.gida-menu-global');
@@ -56,7 +57,8 @@
 			this._isOpenedByHover = false;
 
 			this._bar         = this._root.querySelector(GlobalNav.SEL_NAV_BAR);
-			const menuItems   = this._bar.querySelectorAll('button[data-panel]' + /**/', label[for]'/**/);
+			const menuItems   = this._root.querySelectorAll('.menu > li');
+			const popupItems  = this._bar.querySelectorAll('button[data-panel]' + /**/', label[for]'/**/);
 			this._panelParent = this._root.querySelector(GlobalNav.SEL_NAV_PANEL_PARENT);
 			this._alignPanel  = this._root.classList.contains('pulldown');
 
@@ -71,14 +73,15 @@
 			if (this._panelParent) {
 				this._panels = Array.prototype.slice.call(this._panelParent.children);
 			}
-			// for avoiding hover style
 			if (0 < navigator.maxTouchPoints) {
-				this._bar.addEventListener('touchstart', () => {
-					this._bar.classList.add(GlobalNav.CLS_TOUCHED);
-					this._panelParent.classList.add(GlobalNav.CLS_TOUCHED);
+				this._bar.addEventListener('pointerenter', (e) => {
+					const m = (e.pointerType === 'mouse') ? 'remove' : 'add';
+					this._bar.classList[m](GlobalNav.CLS_TOUCH);
+					this._panelParent.classList[m](GlobalNav.CLS_TOUCH);
 				});
 			}
-			this.addClickStateEventListener(menuItems);
+			addHoverStateEventListener(menuItems, GlobalNav.CLS_CURRENT, GlobalNav.CLS_HOVER);
+			this.addClickStateEventListener(popupItems);
 			if (this._defMenuItem) this.open(this._defMenuItem);
 
 			addScrollableDetectionTarget(this._bar);
@@ -265,6 +268,7 @@
 
 
 		closeAll() {
+			if (this._suppressCloseAll) return;
 			if (this._defMenuItem) {
 				this.open(this._defMenuItem);
 				return;
@@ -274,6 +278,10 @@
 		}
 
 		open(item, isOpenedByHover = false) {
+			this._suppressCloseAll = true;
+			document.dispatchEvent(new MouseEvent('click'));
+			this._suppressCloseAll = false;
+
 			this.clearStateOpened();
 			this.setStateActive(item);
 			this.ensureInView(item);

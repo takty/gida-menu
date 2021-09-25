@@ -3,7 +3,7 @@
  * Gida Menu - Global (SCSS)
  *
  * @author Takuto Yanagida
- * @version 2021-09-24
+ * @version 2021-09-25
  *
  */
 
@@ -12,22 +12,21 @@
 
 
 .gida-menu-global {
+	--bar-mark-color         : #000;
 	--bar-item-width         : unset;
 	--bar-item-height        : 3rem;
 	--bar-item-padding       : 0.75rem 1rem;
-	--bar-item-color-bg-hover: #eee;
-	--bar-item-mark-color    : #000;
 
 	--bar-scroll-shadow-start  : #{rgba(#000, 0.35)};
 	--bar-scroll-shadow-end    : #{rgba(#000, 0.00)};
 	--bar-scroll-scroller-start: #{rgba(#fff, 0.90)};
 	--bar-scroll-scroller-end  : #{rgba(#fff, 0.00)};
 
-	--panel-color-bg           : #fff;
+	--panel-bg-color           : #fff;
 	--panel-shadow             : 0 4px 8px 0 rgba(0, 0, 0, 0.25);
+	--panel-item-width         : unset;
 	--panel-item-height        : 3rem;
 	--panel-item-padding       : 0.25rem 1rem;
-	--panel-item-color-bg-hover: #eee;
 }
 
 
@@ -138,8 +137,8 @@
 			top     : 50%;
 			left    : 50%;
 
-			border-top : 2px solid var(--bar-item-mark-color);
-			border-left: 2px solid var(--bar-item-mark-color);
+			border-top : 2px solid var(--bar-mark-color);
+			border-left: 2px solid var(--bar-mark-color);
 
 			transform: translate(-50%, -50%) rotate(-45deg);
 		}
@@ -151,11 +150,11 @@
 		right: 0;
 		transform: rotate(180deg);
 	}
-	&:not(.touched):hover.scrollable-left .scroll-left {
+	&:not(.touch):hover.scrollable-left .scroll-left {
 		opacity: 1;
 		pointer-events: auto;
 	}
-	&:not(.touched):hover.scrollable-right .scroll-right {
+	&:not(.touch):hover.scrollable-right .scroll-right {
 		opacity: 1;
 		pointer-events: auto;
 	}
@@ -203,7 +202,7 @@
 			bottom  : 0.1rem;
 
 			border    : 0.35rem solid transparent;
-			border-top: 0.35rem solid var(--bar-item-mark-color);
+			border-top: 0.35rem solid var(--bar-mark-color);
 
 			transform: translateX(-50%) scale(0.69, 1) translateY(0.25rem);
 		}
@@ -218,18 +217,10 @@
 		&.opened {
 			/**/> label,/**/
 			> button {
-				background-color: var(--bar-item-color-bg-hover);
 				&::after {
 					transform: translateX(-50%) scale(0.69, -1) translateY(0.15rem);
 				}
 			}
-		}
-	}
-
-	&:not(.touched) .menu > li:not(.current):hover {
-		/**/label,/**/
-		a, button {
-			background-color: var(--bar-item-color-bg-hover);
 		}
 	}
 }
@@ -271,7 +262,7 @@
 		}
 	}
 
-	background-color: var(--panel-color-bg);
+	background-color: var(--panel-bg-color);
 	box-shadow      : var(--panel-shadow);
 
 	> .menu {  // ul
@@ -304,6 +295,7 @@
 			align-items    : flex-start;
 			justify-content: center;
 
+			min-width : var(--panel-item-width);
 			min-height: var(--panel-item-height);
 			padding   : var(--panel-item-padding);
 
@@ -318,12 +310,6 @@
 			a, label {
 				pointer-events : none;
 			}
-		}
-	}
-
-	.gida-menu-global-panels:not(.touched) & .menu > li:not(.current):hover {
-		a, label {
-			background-color: var(--panel-item-color-bg-hover);
 		}
 	}
 }

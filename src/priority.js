@@ -3,7 +3,7 @@
  * Gida Menu - Priority (JS)
  *
  * @author Takuto Yanagida
- * @version 2021-07-05
+ * @version 2021-09-25
  *
  */
 
@@ -13,14 +13,16 @@ window.GIDA = window['GIDA'] ?? {};
 
 window.GIDA.menu_priority = function (id, opts) {
 	const NS         = 'gida-menu-priority';
-	const CLS_BAR    = NS + '-bar';
 	const CLS_PANELS = NS + '-panels';
 	const CLS_PANEL  = NS + '-panel';
 	const CLS_BUTTON = NS + '-button';
 
-	const CLS_STATE_READY  = 'ready';
-	const CLS_STATE_ACTIVE = 'active';
-	const CLS_STATE_OPENED = 'opened';
+	const CLS_CURRENT = 'current';
+
+	const CLS_READY  = 'ready';
+	const CLS_HOVER  = 'hover';
+	const CLS_ACTIVE = 'active';
+	const CLS_OPENED = 'opened';
 
 	const root = id ? document.getElementById(id) : document.getElementsByClassName(NS)[0];
 	if (!root) return;
@@ -48,7 +50,7 @@ window.GIDA.menu_priority = function (id, opts) {
 	menuBar.appendChild(liBtn);
 
 	btn.addEventListener('click', (e) => {
-		if (liBtn.classList.contains(CLS_STATE_OPENED)) {
+		if (liBtn.classList.contains(CLS_OPENED)) {
 			close(liBtn, panel);
 		} else {
 			open(liBtn, panel);
@@ -58,6 +60,7 @@ window.GIDA.menu_priority = function (id, opts) {
 	for (const li of lis) {
 		li.addEventListener('click', () => { close(liBtn, panel); });
 	}
+	addHoverStateEventListener(lis, CLS_CURRENT, CLS_HOVER);
 
 	let ws = [];
 	setTimeout(() => {
@@ -65,7 +68,7 @@ window.GIDA.menu_priority = function (id, opts) {
 		alignItems(ws, menuBar, menuPanel, lis, liBtn);
 		onResize(() => { alignItems(ws, menuBar, menuPanel, lis, liBtn); });
 	}, 10);
-	setTimeout(() => { root.classList.add(CLS_STATE_READY); }, 100);
+	setTimeout(() => { root.classList.add(CLS_READY); }, 100);
 
 	if (autoClose) {
 		onScroll(() => { doOnScroll(liBtn, panel); });
@@ -106,18 +109,18 @@ window.GIDA.menu_priority = function (id, opts) {
 
 
 	function close(liBtn, panel) {
-		liBtn.classList.remove(CLS_STATE_OPENED);
-		panel.classList.remove(CLS_STATE_ACTIVE);
+		liBtn.classList.remove(CLS_OPENED);
+		panel.classList.remove(CLS_ACTIVE);
 		setTimeout(() => {
-			panel.classList.remove(CLS_STATE_OPENED);
+			panel.classList.remove(CLS_OPENED);
 		}, 400);
 	}
 
 	function open(liBtn, panel) {
-		liBtn.classList.add(CLS_STATE_OPENED);
-		panel.classList.add(CLS_STATE_ACTIVE);
+		liBtn.classList.add(CLS_OPENED);
+		panel.classList.add(CLS_ACTIVE);
 		setTimeout(() => {
-			panel.classList.add(CLS_STATE_OPENED);
+			panel.classList.add(CLS_OPENED);
 		}, 0);
 		scrollTop = window.pageYOffset;
 	}

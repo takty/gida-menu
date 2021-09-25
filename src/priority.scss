@@ -3,7 +3,7 @@
  * Gida Menu - Priority (SCSS)
  *
  * @author Takuto Yanagida
- * @version 2021-09-22
+ * @version 2021-09-25
  *
  */
 
@@ -12,32 +12,17 @@
 
 
 .gida-menu-priority {
-	--bar-item-color-bg-hover: #eee;
-	--bar-item-padding       : 0.75rem 1rem;
+	--bar-mark-color         : #000;
 	--bar-item-width         : unset;
 	--bar-item-height        : 3rem;
-	--bar-item-mark-color    : #000;
+	--bar-item-padding       : 0.75rem 1rem;
 
-	@include for-tp-o {
-		--bar-item-padding: 0.75rem 1.5rem;
-		--bar-item-width  : 7rem;
-	}
-	@include for-tl {
-		--bar-item-padding: 0.75rem 1.75rem;
-		--bar-item-width  : 8rem;
-	}
-
-	--panel-offset: 0.25rem;
-
-	--panel-color-bg           : #fff;
+	--panel-offset             : 0.25rem;
+	--panel-bg-color           : #fff;
 	--panel-shadow             : 0 4px 8px 0 rgba(0, 0, 0, 0.25);
+	--panel-item-width         : unset;
 	--panel-item-height        : 3rem;
 	--panel-item-padding       : 0.25rem 1rem;
-	--panel-item-color-bg-hover: #eee;
-
-	@media screen and (min-width: 600px) {  // for-ta
-		--panel-item-padding: 1rem;
-	}
 }
 
 
@@ -57,7 +42,8 @@
 
 	li,
 	a, button {
-		transition: background-color 0.2s ease;
+		transition-duration: 0.2s;
+		transition-property: color, background-color;
 		&::before, &::after { transition: all 0.2s ease; }
 	}
 	a, button {
@@ -121,6 +107,7 @@
 			position: relative;
 
 			display        : flex;
+			align-items    : center;
 			justify-content: center;
 
 			min-height: var(--bar-item-height);
@@ -148,33 +135,23 @@
 			bottom  : 40%;
 
 			border    : 0.35rem solid transparent;
-			border-top: 0.35rem solid var(--bar-item-mark-color);
+			border-top: 0.35rem solid var(--bar-mark-color);
 
 			transform: translateX(-50%) scale(0.69, 1) translateY(0.25rem);
 		}
 
-		&.opened {
-			> button {
-				background-color: var(--bar-item-color-bg-hover);
-			}
-			> button::after {
-				transform: translateX(-50%) scale(0.69, -1) translateY(0.15rem);
-			}
-		}
-
-		&.page-ancestor,
-		&.menu-ancestor,
 		&.current {
 			a, button {
 				pointer-events : none;
-				text-decoration: underline;
 			}
 		}
-	}
 
-	&:not(.touched) .menu > li:hover {
-		a, button {
-			background-color: var(--bar-item-color-bg-hover);
+		&.opened {
+			> button {
+				&::after {
+					transform: translateX(-50%) scale(0.69, -1) translateY(0.15rem);
+				}
+			}
 		}
 	}
 }
@@ -220,16 +197,20 @@
 		}
 	}
 
-	background-color: var(--panel-color-bg);
+	background-color: var(--panel-bg-color);
 	box-shadow      : var(--panel-shadow);
 
 	> .menu {  // ul
 		margin: auto;
 
 		display        : flex;
+		align-items    : center;
 		justify-content: center;
 
 		.gida-menu-priority.pulldown & {
+			flex-direction: column;
+		}
+		@include for-ph-o {
 			flex-direction: column;
 		}
 		min-width: 100%;
@@ -246,8 +227,10 @@
 
 		a {
 			display        : flex;
+			align-items    : center;
 			justify-content: flex-start;
 
+			min-width : var(--panel-item-width);
 			min-height: var(--panel-item-height);
 			padding   : var(--panel-item-padding);
 
@@ -258,19 +241,10 @@
 			span { display: inline-block; }
 		}
 
-		&.page-ancestor,
-		&.menu-ancestor,
 		&.current {
 			a {
 				pointer-events : none;
-				text-decoration: underline;
 			}
-		}
-	}
-
-	.gida-menu-priority-panels:not(.touched) & .menu > li:hover {
-		a, label {
-			background-color: var(--panel-item-color-bg-hover);
 		}
 	}
 }

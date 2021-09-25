@@ -3,7 +3,7 @@
  * Common Functions (JS)
  *
  * @author Takuto Yanagida
- * @version 2021-06-30
+ * @version 2021-09-26
  *
  */
 
@@ -49,6 +49,27 @@ function detectScrollable(elm) {
 	} else {
 		elm.classList.remove('scrollable-right');
 		elm.classList.remove('scrollable-left');
+	}
+}
+
+
+// -----------------------------------------------------------------------------
+
+
+function addHoverStateEventListener(items, clsCurrent, clsHover) {
+	const enter = (e) => {
+		if (e.pointerType === 'mouse' && !e.target.classList.contains(clsCurrent)) {
+			e.target.classList.add(clsHover);
+		}
+	}
+	const leave = (e) => {
+		if (e.pointerType === 'mouse' && !e.target.classList.contains(clsCurrent)) {
+			e.target.classList.remove(clsHover);
+		}
+	}
+	for (const it of items) {
+		it.addEventListener('pointerenter', enter);
+		it.addEventListener('pointerleave', leave);
 	}
 }
 
