@@ -3,7 +3,7 @@
  * Gulpfile
  *
  * @author Takuto Yanagida
- * @version 2021-07-28
+ * @version 2021-09-26
  *
  */
 
@@ -12,7 +12,10 @@
 
 const gulp = require('gulp');
 
-const { makeJsTask, makeSassTask, makeCopyTask, makeTimestampTask } = require('./common');
+const { makeJsTask }        = require('./task-js');
+const { makeSassTask }      = require('./task-sass');
+const { makeCopyTask }      = require('./task-copy');
+const { makeTimestampTask } = require('./task-timestamp');
 
 
 // -----------------------------------------------------------------------------
