@@ -8,47 +8,101 @@
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="">
-<link rel="stylesheet" href="css/style.min.css?v153948t">
-<link rel="stylesheet" href="css/global.min.css?v153948t">
-<script src="js/global.min.js?v153948t"></script>
+<link rel="stylesheet" href="css/style.min.css?v002617t">
+<link rel="stylesheet" href="css/global.min.css?v002617t">
+<script src="js/global.min.js?v002617t"></script>
 </head>
 <body>
 <div class="content">
 
-	<h1>Gida Menu - Global <small>v153948t</small></h1>
+	<h1>Gida Menu - Global <small>v002617t</small></h1>
 	<nav>
 		<a href="index.html">Go Back</a>
 	</nav>
 
+	<h2>Popup Styles</h2>
+
+	<h3>Default</h3>
 	<div class="frame-global">
-		<nav id="mg0" class="gida-menu-global pulldown" role="navigation">
+		<nav id="mg0" class="gida-menu-global" role="navigation">
 			<div class="gida-menu-global-bar">
 				<ul class="menu">
 					<li><a href="#"><div>Menu Item 1</div></a></li>
-					<li><a href="#"><div>Menu Item 2</div></a></li>
-					<li><button data-panel="mg1-panel-1"><div>Menu Item 3</div></button></li>
-					<li><button data-panel="mg1-panel-2"><div>Menu Item 4</div></button></li>
+					<li class="current"><a href="#"><div>Menu Item 2 (Current)</div></a></li>
+					<li class="menu-ancestor"><button data-panel="mg0-panel-1"><div>Menu Item 3</div></button></li>
+					<li><a href="#"><div>Menu Item 4</div></a></li>
 					<li><a href="#"><div>Menu Item 5</div></a></li>
+					<li><a href="#"><div>Menu Item 6</div></a></li>
+					<li><button data-panel="mg0-panel-2"><div>Menu Item 7</div></button></li>
+					<li><a href="#"><div>Menu Item 8</div></a></li>
 				</ul>
 			</div>
 			<div class="gida-menu-global-panels screen-only">
-				<div id="mg1-panel-1" class="gida-menu-global-panel">
+				<div id="mg0-panel-1" class="gida-menu-global-panel">
 					<ul class="menu">
-						<li class="current"><a href="#"><div>Current Item</div></a></li>
-						<li><a href="#"><div>Menu Item 6</div></a></li>
+						<li class="current"><a href="#"><div>Sub Menu Item 3-1 (Current)</div></a></li>
+						<li><a href="#"><div>Sub Menu Item 3-2</div></a></li>
 					</ul>
 				</div>
-				<div id="mg1-panel-2" class="gida-menu-global-panel">
+				<div id="mg0-panel-2" class="gida-menu-global-panel">
 					<ul class="menu">
-						<li><a href="#"><div>Menu Item 7</div></a></li>
-						<li><a href="#"><div>Menu Item 8</div></a></li>
-						<li><a href="#"><div>Menu Item 9</div></a></li>
+						<li><a href="#"><div>Sub Menu Item 7-1</div></a></li>
+						<li><a href="#"><div>Sub Menu Item 7-2</div></a></li>
+						<li><a href="#"><div>Sub Menu Item 7-3</div></a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
 		<script>GIDA.menu_global('mg0', { autoClose: true });</script>
 	</div>
+
+	<h3>Pulldown</h3>
+	<div class="frame-global">
+		<nav id="mg1" class="gida-menu-global pulldown" role="navigation">
+			<div class="gida-menu-global-bar">
+				<ul class="menu">
+					<li><a href="#"><div>Menu Item 1</div></a></li>
+					<li class="current"><a href="#"><div>Menu Item 2 (Current)</div></a></li>
+					<li class="menu-ancestor"><button data-panel="mg1-panel-1"><div>Menu Item 3</div></button></li>
+					<li><a href="#"><div>Menu Item 4</div></a></li>
+					<li><a href="#"><div>Menu Item 5</div></a></li>
+					<li><a href="#"><div>Menu Item 6</div></a></li>
+					<li><button data-panel="mg1-panel-2"><div>Menu Item 7</div></button></li>
+					<li><a href="#"><div>Menu Item 8</div></a></li>
+				</ul>
+			</div>
+			<div class="gida-menu-global-panels screen-only">
+				<div id="mg1-panel-1" class="gida-menu-global-panel">
+					<ul class="menu">
+						<li class="current"><a href="#"><div>Sub Menu Item 3-1 (Current)</div></a></li>
+						<li><a href="#"><div>Sub Menu Item 3-2</div></a></li>
+					</ul>
+				</div>
+				<div id="mg1-panel-2" class="gida-menu-global-panel">
+					<ul class="menu">
+						<li><a href="#"><div>Sub Menu Item 7-1</div></a></li>
+						<li><a href="#"><div>Sub Menu Item 7-2</div></a></li>
+						<li><a href="#"><div>Sub Menu Item 7-3</div></a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<script>GIDA.menu_global('mg1', { autoClose: true });</script>
+	</div>
+
+	<h2>Options</h2>
+
+	<pre><code>
+{
+    autoClose                   : true,
+    autoScroll                  : true,
+    suppressClickCloseAfterHover: false,
+    scrollViewOffset            : 20,
+    defaultMenuItem             : null,
+    childNav                    : null,
+    onBeforeOpen                : null,
+}
+	</code></pre>
 
 </div>
 </body>

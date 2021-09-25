@@ -3,7 +3,7 @@
  * Gida Menu - Sample (SCSS)
  *
  * @author Takuto Yanagida
- * @version 2021-07-07
+ * @version 2021-09-25
  *
  */
 
@@ -44,4 +44,11 @@ pre {
 .frame-global,
 .frame-priority {
 	margin-top: 2rem;
+
+	.current > * {
+		background-color: #edf;
+	}
+	.hover > * {
+		background-color: #eee;
+	}
 }
