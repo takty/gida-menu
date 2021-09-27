@@ -1,6 +1,6 @@
 /**
  *
- * Gida Menu - Sample (SCSS)
+ * Styles for Sample (SCSS)
  *
  * @author Takuto Yanagida
  * @version 2021-09-25
@@ -17,11 +17,12 @@
 }
 
 body {
+	min-height    : 200vh;
 	padding-top   : 4vh;
 	padding-bottom: 4vh;
 	overflow-x    : hidden;
 
-	min-height: 200vh;
+	background-color: #fff;
 }
 
 h1 small {
@@ -40,6 +41,10 @@ pre {
 
 	color: hsla(0, 0%, 0%, 0.75);
 }
+
+
+// -----------------------------------------------------------------------------
+
 
 .frame-global,
 .frame-priority {
