@@ -3,15 +3,15 @@
  * Gida Menu - Priority (JS)
  *
  * @author Takuto Yanagida
- * @version 2021-09-25
+ * @version 2021-09-28
  *
  */
 
 
-window.GIDA = window['GIDA'] ?? {};
+window['GIDA'] = window['GIDA'] ?? {};
 
 
-window.GIDA.menu_priority = function (id, opts) {
+window['GIDA'].menu_priority = function (id = null, opts = {}) {
 	const NS         = 'gida-menu-priority';
 	const CLS_PANELS = NS + '-panels';
 	const CLS_PANEL  = NS + '-panel';

@@ -3,16 +3,16 @@
  * Gida Menu - Global (JS)
  *
  * @author Takuto Yanagida
- * @version 2021-09-25
+ * @version 2021-09-28
  *
  */
 
 
 (function () {
 
-	window.GIDA = window['GIDA'] ?? {};
+	window['GIDA'] = window['GIDA'] ?? {};
 
-	window.GIDA.menu_global = function (id, opts) {
+	window['GIDA'].menu_global = function (id = null, opts = {}) {
 		new GlobalNav(id, opts);
 	};
 
