@@ -7,7 +7,7 @@
 	"scripts": {
 		"postinstall": "gulp build",
 		"start": "gulp",
-		"docs": "gulp docs"
+		"docs": "gulp doc"
 	},
 	"repository": {
 		"type": "git",
