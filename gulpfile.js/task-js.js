@@ -1,10 +1,8 @@
 /**
- *
  * Function for gulp (JS)
  *
  * @author Takuto Yanagida
  * @version 2021-09-02
- *
  */
 
 'use strict';

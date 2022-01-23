@@ -1,10 +1,8 @@
 /**
- *
  * Common functions for gulp
  *
  * @author Takuto Yanagida
  * @version 2021-09-02
- *
  */
 
 'use strict';

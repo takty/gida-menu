@@ -1,10 +1,8 @@
 /**
- *
- * Gida Menu - Global (JS)
+ * Gida Menu - Global
  *
  * @author Takuto Yanagida
- * @version 2021-09-28
- *
+ * @version 2022-01-21
  */
 
 

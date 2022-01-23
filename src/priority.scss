@@ -1,14 +1,12 @@
 /**
- *
- * Gida Menu - Priority (SCSS)
+ * Gida Menu - Priority
  *
  * @author Takuto Yanagida
- * @version 2021-09-25
- *
+ * @version 2022-01-21
  */
 
 
-@import 'mixin';
+@use 'mixin' as *;
 
 
 .gida-menu-priority {
@@ -32,25 +30,25 @@
 .gida-menu-priority {
 	position  : relative;
 	box-sizing: border-box;
-	*,
-	*::before,
-	*::after {
+
+	:is(*, *::before, *::after) {
 		box-sizing: inherit;
 		margin    : 0;
 		padding   : 0;
 	}
 
-	li,
-	a, button {
+	:is(li, a, button) {
 		transition-duration: 0.2s;
 		transition-property: color, background-color;
 		&::before, &::after { transition: all 0.2s ease; }
 	}
-	a, button {
-		&:focus:not(:focus-visible) { outline: 0; }
+
+	:is(a, button) {
 		user-select: none;
 	}
+
 	a { text-decoration: none; }
+
 	button {
 		appearance: none;
 		border    : inherit;
@@ -58,9 +56,11 @@
 		color     : inherit;
 		font      : inherit;
 	}
+
 	ul {
 		list-style-type: none;
 	}
+
 	li label {
 		display: none;
 	}
@@ -103,7 +103,7 @@
 		position : relative;
 		flex-grow: 1;
 
-		> a, > button {
+		> :is(a, button) {
 			position: relative;
 
 			display        : flex;
@@ -119,9 +119,13 @@
 			min-width : var(--bar-item-width);
 			padding   : var(--bar-item-padding);
 		}
+
 		> button {
 			min-width: var(--bar-item-height);
 			max-width: var(--bar-item-height);
+
+			display    : grid;
+			place-items: center;
 		}
 
 		> button::after {
@@ -129,19 +133,15 @@
 
 			content : '';
 			position: absolute;
-			width   : 0;
-			height  : 0;
-			left    : 50%;
-			bottom  : 40%;
+			width   : 0.5rem;
+			height  : 0.5rem;
 
-			border    : 0.35rem solid transparent;
-			border-top: 0.35rem solid var(--bar-mark-color);
-
-			transform: translateX(-50%) scale(0.69, 1) translateY(0.25rem);
+			clip-path : polygon(0% 20%, 100% 20%, 50% 95%);
+			box-shadow: 0 0 1rem var(--bar-mark-color) inset;
 		}
 
 		&.current {
-			a, button {
+			:is(a, button) {
 				pointer-events : none;
 			}
 		}
@@ -149,7 +149,7 @@
 		&.opened {
 			> button {
 				&::after {
-					transform: translateX(-50%) scale(0.69, -1) translateY(0.15rem);
+					transform: scaleY(-1);
 				}
 			}
 		}
@@ -165,13 +165,14 @@
 
 	.gida-menu-priority-panel {
 		display: none;
-		&.active { display: block; }
-		&.opened { display: block; }
+		&:is(.active, .opened) { display: block; }
 
 		opacity: 0;
-		&.active.opened { opacity: 1; }
 
-		&.active.opened       { transition: opacity 0.20s ease; }
+		&.active.opened {
+			opacity   : 1;
+			transition: opacity 0.20s ease;
+		}
 		&:not(.active).opened { transition: opacity 0.25s ease 0.1s; }
 	}
 	&.pulldown .gida-menu-priority-panel {

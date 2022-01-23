@@ -1,10 +1,8 @@
 /**
- *
- * Common Functions (JS)
+ * Common Functions
  *
  * @author Takuto Yanagida
- * @version 2021-09-26
- *
+ * @version 2022-01-21
  */
 
 

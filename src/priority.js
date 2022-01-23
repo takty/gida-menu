@@ -1,10 +1,8 @@
 /**
- *
- * Gida Menu - Priority (JS)
+ * Gida Menu - Priority
  *
  * @author Takuto Yanagida
- * @version 2021-12-18
- *
+ * @version 2022-01-21
  */
 
 

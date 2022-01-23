@@ -1,10 +1,8 @@
 /**
- *
  * Function for gulp (Timestamp)
  *
  * @author Takuto Yanagida
  * @version 2021-10-14
- *
  */
 
 'use strict';

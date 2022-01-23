@@ -1,10 +1,8 @@
 /**
- *
  * Gulpfile
  *
  * @author Takuto Yanagida
  * @version 2021-10-14
- *
  */
 
 

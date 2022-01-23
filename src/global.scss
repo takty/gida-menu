@@ -1,10 +1,8 @@
 /**
- *
- * Gida Menu - Global (SCSS)
+ * Gida Menu - Global
  *
  * @author Takuto Yanagida
- * @version 2021-09-25
- *
+ * @version 2022-01-21
  */
 
 
@@ -36,25 +34,25 @@
 .gida-menu-global {
 	position  : relative;
 	box-sizing: border-box;
-	*,
-	*::before,
-	*::after {
+
+	:is(*, *::before, *::after) {
 		box-sizing: inherit;
 		margin    : 0;
 		padding   : 0;
 	}
 
-	li,
-	a, button, label {
+	:is(li, a, button, label) {
 		transition-duration: 0.2s;
 		transition-property: color, background-color;
 		&::before, &::after { transition: all 0.2s ease; }
 	}
-	a, button, label {
-		&:focus:not(:focus-visible) { outline: 0; }
+
+	:is(a, button, label) {
 		user-select: none;
 	}
+
 	a { text-decoration: none; }
+
 	button {
 		appearance: none;
 		border    : inherit;
@@ -62,6 +60,7 @@
 		color     : inherit;
 		font      : inherit;
 	}
+
 	ul {
 		list-style-type: none;
 	}
@@ -107,16 +106,17 @@
 		background-image: radial-gradient(farthest-side at center right, var(--bar-scroll-shadow-start), var(--bar-scroll-shadow-end));
 		right: 0;
 	}
-	&.scrollable-left::before { opacity: 1; }
-	&.scrollable-right::after { opacity: 1; }
+	&.scrollable-left::before,
+	&.scrollable-right::after {
+		opacity: 1;
+	}
 
 	.gida-menu-global.box-shadow & {
 		&::before { background-image: linear-gradient(to left, var(--bar-scroll-shadow-start), var(--bar-scroll-shadow-end)); }
 		&::after  { background-image: linear-gradient(to right, var(--bar-scroll-shadow-start), var(--bar-scroll-shadow-end)); }
 	}
 
-	.scroll-left,
-	.scroll-right {
+	:is(.scroll-left, .scroll-right) {
 		position: absolute;
 		top     : 0;
 		bottom  : 0;
@@ -174,8 +174,7 @@
 		position : relative;
 		flex-grow: 1;
 
-		/**/> label,/**/
-		> a, > button {
+		> :is(/**/label,/**/ a, button) {
 			position: relative;
 
 			display        : flex;
@@ -190,35 +189,32 @@
 			white-space: nowrap;
 		}
 
-		/**/> label::after,/**/
-		> button::after {
+		> :is(/**/label,/**/ button)::after {
 			display: inline-block;
 
 			content : '';
 			position: absolute;
-			width   : 0;
-			height  : 0;
+			width   : 0.5rem;
+			height  : 0.5rem;
 			left    : 50%;
-			bottom  : 0.1rem;
+			bottom  : 0.15rem;
 
-			border    : 0.35rem solid transparent;
-			border-top: 0.35rem solid var(--bar-mark-color);
+			clip-path : polygon(0% 20%, 100% 20%, 50% 95%);
+			box-shadow: 0 0 1rem var(--bar-mark-color) inset;
 
-			transform: translateX(-50%) scale(0.69, 1) translateY(0.25rem);
+			transform: translateX(-50%);
 		}
 
 		&.current {
-			/**/label,/**/
-			a, button {
+			:is(/**/label,/**/ a, button) {
 				pointer-events : none;
 			}
 		}
 
 		&.opened {
-			/**/> label,/**/
-			> button {
+			> :is(/**/label,/**/ button) {
 				&::after {
-					transform: translateX(-50%) scale(0.69, -1) translateY(0.15rem);
+					transform: translateX(-50%) scaleY(-1);
 				}
 			}
 		}
@@ -234,13 +230,14 @@
 
 	.gida-menu-global-panel {
 		display: none;
-		&.active { display: block; }
-		&.opened { display: block; }
+		&:is(.active, .opened) { display: block; }
 
 		opacity: 0;
-		&.active.opened { opacity: 1; }
 
-		&.active.opened       { transition: opacity 0.20s ease; }
+		&.active.opened {
+			opacity   : 1;
+			transition: opacity 0.20s ease;
+		}
 		&:not(.active).opened { transition: opacity 0.25s ease 0.1s; }
 	}
 }
@@ -289,7 +286,7 @@
 	> .menu > li {
 		position: relative;
 
-		a, label {
+		:is(a, label) {
 			display        : flex;
 			flex-direction : column;
 			align-items    : flex-start;
@@ -307,7 +304,7 @@
 		}
 
 		&.current {
-			a, label {
+			:is(a, label) {
 				pointer-events : none;
 			}
 		}
