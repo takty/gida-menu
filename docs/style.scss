@@ -15,10 +15,9 @@
 }
 
 body {
-	min-height    : 200vh;
-	padding-top   : 4vh;
-	padding-bottom: 4vh;
-	overflow-x    : hidden;
+	min-height   : 200vh;
+	padding-block: 4vh;
+	overflow-x   : hidden;
 
 	background-color: #fff;
 }
@@ -33,9 +32,9 @@ pre {
 }
 
 .content {
-	margin   : { left: auto; right: auto; }
-	max-width: 48rem;
-	width    : calc(100% - 2vw);
+	margin-inline: auto;
+	max-width    : 48rem;
+	width        : calc(100% - 2vw);
 
 	color: hsla(0, 0%, 0%, 0.75);
 }
@@ -46,12 +45,17 @@ pre {
 
 .frame-global,
 .frame-priority {
-	margin-top: 2rem;
+	margin-block-start: 2rem;
 
 	.current > * {
 		background-color: #edf;
 	}
-	.hover > * {
+
+	.hover:not(.hover-ancestor) > :is(a, button) {
 		background-color: #eee;
+	}
+
+	.menu .menu {
+		padding-inline-start: 1rem;
 	}
 }
