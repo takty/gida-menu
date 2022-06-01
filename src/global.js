@@ -2,7 +2,7 @@
  * Gida Menu - Global
  *
  * @author Takuto Yanagida
- * @version 2022-01-21
+ * @version 2022-06-01
  */
 
 
@@ -37,6 +37,8 @@
 		static CLS_TOUCH  = 'touch';
 		static CLS_ACTIVE = 'active';
 		static CLS_OPENED = 'opened';
+
+		static CLS_HOVER_ANCESTOR  = 'hover-ancestor';
 
 		constructor(id, opts) {
 			this._root = id ? document.getElementById(id) : document.querySelector('.gida-menu-global');
@@ -78,7 +80,7 @@
 					this._panelParent.classList[m](GlobalNav.CLS_TOUCH);
 				});
 			}
-			addHoverStateEventListener(menuItems, GlobalNav.CLS_CURRENT, GlobalNav.CLS_HOVER);
+			addHoverStateEventListener(menuItems, GlobalNav.CLS_CURRENT, GlobalNav.CLS_HOVER, this._root, GlobalNav.CLS_HOVER_ANCESTOR);
 			this.addClickStateEventListener(popupItems);
 			if (this._defMenuItem) this.open(this._defMenuItem);
 

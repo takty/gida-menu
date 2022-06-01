@@ -2,7 +2,7 @@
  * Common Functions
  *
  * @author Takuto Yanagida
- * @version 2022-01-21
+ * @version 2022-06-01
  */
 
 
@@ -54,15 +54,29 @@ function detectScrollable(elm) {
 // -----------------------------------------------------------------------------
 
 
-function addHoverStateEventListener(items, clsCurrent, clsHover) {
+function addHoverStateEventListener(items, clsCurrent, clsHover, root = null, clsHoverAncestor = null) {
 	const enter = (e) => {
 		if (e.pointerType === 'mouse' && !e.target.classList.contains(clsCurrent)) {
 			e.target.classList.add(clsHover);
+			if (clsHoverAncestor) {
+				for (let elm = e.target.parentElement; elm && elm !== root; elm = elm.parentElement) {
+					if (elm.classList.contains(clsHover)) {
+						elm.classList.add(clsHoverAncestor);
+					}
+				}
+			}
 		}
 	}
 	const leave = (e) => {
 		if (e.pointerType === 'mouse' && !e.target.classList.contains(clsCurrent)) {
 			e.target.classList.remove(clsHover);
+			if (clsHoverAncestor) {
+				for (let elm = e.target.parentElement; elm && elm !== root; elm = elm.parentElement) {
+					if (elm.classList.contains(clsHover)) {
+						elm.classList.remove(clsHoverAncestor);
+					}
+				}
+			}
 		}
 	}
 	for (const it of items) {

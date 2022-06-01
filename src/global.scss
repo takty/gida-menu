@@ -2,7 +2,7 @@
  * Gida Menu - Global
  *
  * @author Takuto Yanagida
- * @version 2022-01-21
+ * @version 2022-06-01
  */
 
 
@@ -10,21 +10,21 @@
 
 
 .gida-menu-global {
-	--bar-mark-color         : #000;
-	--bar-item-width         : unset;
-	--bar-item-height        : 3rem;
-	--bar-item-padding       : 0.75rem 1rem;
+	--bar-mark-color  : #000;
+	--bar-item-width  : unset;
+	--bar-item-height : 3rem;
+	--bar-item-padding: 0.75rem 1rem;
 
 	--bar-scroll-shadow-start  : #{rgba(#000, 0.35)};
 	--bar-scroll-shadow-end    : #{rgba(#000, 0.00)};
 	--bar-scroll-scroller-start: #{rgba(#fff, 0.90)};
 	--bar-scroll-scroller-end  : #{rgba(#fff, 0.00)};
 
-	--panel-bg-color           : #fff;
-	--panel-shadow             : 0 4px 8px 0 rgba(0, 0, 0, 0.25);
-	--panel-item-width         : unset;
-	--panel-item-height        : 3rem;
-	--panel-item-padding       : 0.25rem 1rem;
+	--panel-bg-color    : #fff;
+	--panel-shadow      : 0 4px 8px 0 rgba(0, 0, 0, 0.25);
+	--panel-item-width  : unset;
+	--panel-item-height : 3rem;
+	--panel-item-padding: 0.25rem 1rem;
 }
 
 
@@ -262,13 +262,14 @@
 	background-color: var(--panel-bg-color);
 	box-shadow      : var(--panel-shadow);
 
-	> .menu {  // ul
+	.menu {  // ul
 		margin: auto;
 
 		display        : flex;
 		justify-content: center;
 
-		.gida-menu-global.pulldown & {
+		.gida-menu-global.pulldown &,
+		.gida-menu-global:not(.pulldown) & .menu {
 			flex-direction: column;
 		}
 		@include for-ph-o {
@@ -283,7 +284,7 @@
 		}
 	}
 
-	> .menu > li {
+	.menu > li {
 		position: relative;
 
 		:is(a, label) {
