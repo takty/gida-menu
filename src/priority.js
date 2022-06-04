@@ -2,7 +2,7 @@
  * Gida Menu - Priority
  *
  * @author Takuto Yanagida
- * @version 2022-01-21
+ * @version 2022-06-04
  */
 
 
@@ -28,9 +28,11 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 	if (!menuBar) return;
 	const lis = Array.from(menuBar.querySelectorAll('li'));
 
-	const autoClose = opts['autoClose'] ?? true;
+	const menuBarStyle = getComputedStyle(menuBar);
+	const autoClose    = opts['autoClose'] ?? true;
 
 	let scrollTop = 0;
+	let columnGap = 0;
 
 
 	// -------------------------------------------------------------------------
@@ -62,7 +64,9 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 
 	let ws = [];
 	setTimeout(() => {
-		ws = lis.map((e) => e.offsetWidth);
+		ws        = lis.map((e) => e.offsetWidth);
+		columnGap = parseInt(menuBarStyle.columnGap, 10);
+		columnGap = Number.isNaN(columnGap) ? 0 : columnGap;
 		alignItems(ws, menuBar, menuPanel, lis, liBtn);
 		onResize(() => { alignItems(ws, menuBar, menuPanel, lis, liBtn); });
 	}, 10);
@@ -138,12 +142,12 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 		let sep  = lis.length;
 
 		const btnW = liBtn.clientWidth;
-		const sum  = ws.reduce((s, v) => s + v);
+		const sum  = ws.reduce((s, v) => s + v) + (columnGap * (ws.length - 1));
 
 		if (remW < sum) {
 			remW -= btnW;
 			for (let i = 0; i < ws.length; i += 1) {
-				if ((remW -= ws[i]) < 0) {
+				if ((remW -= ws[i] + columnGap) < 0) {
 					sep = i;
 					break;
 				}
@@ -156,6 +160,8 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 				menuBar.insertBefore(lis[i], liBtn);
 			}
 		}
+		columnGap = parseInt(menuBarStyle.columnGap, 10);
+		columnGap = Number.isNaN(columnGap) ? 0 : columnGap;
 		for (let i = sep; i < lis.length; i += 1) menuPanel.appendChild(lis[i]);
 		liBtn.style.display = (sep === lis.length) ? 'none' : '';
 	}
