@@ -2,7 +2,7 @@
  * Gida Menu - Global
  *
  * @author Takuto Yanagida
- * @version 2022-06-01
+ * @version 2022-06-09
  */
 
 
@@ -28,6 +28,7 @@
 
 		static SEL_NAV_BAR          = '.gida-menu-global-bar';
 		static SEL_NAV_PANEL_PARENT = '.gida-menu-global-panels';
+		static SEL_NAV_CLOSER       = '.gida-menu-global-closer';
 
 		static CLS_CURRENT       = 'current';
 		static CLS_MENU_ANCESTOR = 'menu-ancestor';
@@ -87,13 +88,18 @@
 			addScrollableDetectionTarget(this._bar);
 
 			if (autoClose) {
-				onScroll(() => { this.onScroll(); });
+				onScroll(() => this.onScroll());
 				if (this._panelParent) this._panelParent.addEventListener('click', e => e.stopPropagation());
-				document.addEventListener('click', () => { this.closeAll(); });
+				document.addEventListener('click', () => this.closeAll());
 			}
 			if (autoScroll) {
 				const mis = this._bar.querySelectorAll('a, button[data-panel]' + /**/', label[for]'/**/);
 				this.initializeAutoScroll(mis);
+			}
+
+			const closers = this._root.querySelectorAll(GlobalNav.SEL_NAV_CLOSER);
+			for (const c of closers) {
+				c.addEventListener('click', () => this.closeAll());
 			}
 		}
 
@@ -192,7 +198,7 @@
 			return () => {
 				if (item !== this._openItem) {
 					this.cancelTimeout();
-					this._st = setTimeout(() => { this.open(item, true); }, this._openItem !== null ? 400 : 200);
+					this._st = setTimeout(() => this.open(item, true), this._openItem !== null ? 400 : 200);
 				}
 			};
 		}
@@ -258,7 +264,7 @@
 					return;
 				}
 				if (this._openItem !== null) {
-					this._st = setTimeout(() => { this.closeAll(); }, 800);
+					this._st = setTimeout(() => this.closeAll(), 800);
 				}
 			};
 		}
