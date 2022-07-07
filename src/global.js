@@ -2,7 +2,7 @@
  * Gida Menu - Global
  *
  * @author Takuto Yanagida
- * @version 2022-06-09
+ * @version 2022-07-07
  */
 
 
@@ -63,13 +63,13 @@
 			this._panelParent = this._root.querySelector(GlobalNav.SEL_NAV_PANEL_PARENT);
 			this._alignPanel  = this._root.classList.contains('pulldown');
 
-			const autoClose                    = opts['autoClose']                    ?? true;
-			const autoScroll                   = opts['autoScroll']                   ?? true;
-			this._suppressClickCloseAfterHover = opts['suppressClickCloseAfterHover'] ?? false;
-			this._scrollViewOffset             = opts['scrollViewOffset']             ?? 20;
-			this._defMenuItem                  = opts['defaultMenuItem']              ?? null;
-			this._child                        = opts['childNav']                     ?? null;
-			this._onBeforeOpen                 = opts['onBeforeOpen']                 ?? null;
+			const doAutoClose                    = opts['doAutoClose']                    ?? true;
+			const doAutoScroll                   = opts['doAutoScroll']                   ?? true;
+			this._doSuppressClickCloseAfterHover = opts['doSuppressClickCloseAfterHover'] ?? false;
+			this._scrollViewOffset               = opts['scrollViewOffset']               ?? 20;
+			this._defMenuItem                    = opts['defaultMenuItem']                ?? null;
+			this._child                          = opts['childNav']                       ?? null;
+			this._onBeforeOpen                   = opts['onBeforeOpen']                   ?? null;
 
 			if (this._panelParent) {
 				this._panels = Array.prototype.slice.call(this._panelParent.children);
@@ -87,12 +87,12 @@
 
 			addScrollableDetectionTarget(this._bar);
 
-			if (autoClose) {
+			if (doAutoClose) {
 				onScroll(() => this.onScroll());
 				if (this._panelParent) this._panelParent.addEventListener('click', e => e.stopPropagation());
 				document.addEventListener('click', () => this.closeAll());
 			}
-			if (autoScroll) {
+			if (doAutoScroll) {
 				const mis = this._bar.querySelectorAll('a, button[data-panel]' + /**/', label[for]'/**/);
 				this.initializeAutoScroll(mis);
 			}
@@ -246,7 +246,7 @@
 				if (t - this._openTime < 200) return;
 				if (item === this._openItem) {
 					if (this._isOpenedByHover) {
-						if (this._suppressClickCloseAfterHover) return;
+						if (this._doSuppressClickCloseAfterHover) return;
 						if (t - this._openTime < 400) return;
 					}
 					this.closeAll();

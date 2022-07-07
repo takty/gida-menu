@@ -2,7 +2,7 @@
  * Gida Menu - Priority
  *
  * @author Takuto Yanagida
- * @version 2022-06-04
+ * @version 2022-07-07
  */
 
 
@@ -29,7 +29,7 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 	const lis = Array.from(menuBar.querySelectorAll('li'));
 
 	const menuBarStyle = getComputedStyle(menuBar);
-	const autoClose    = opts['autoClose'] ?? true;
+	const doAutoClose  = opts['doAutoClose'] ?? true;
 
 	let scrollTop = 0;
 	let columnGap = 0;
@@ -72,7 +72,7 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 	}, 10);
 	setTimeout(() => { root.classList.add(CLS_READY); }, 100);
 
-	if (autoClose) {
+	if (doAutoClose) {
 		onScroll(() => { doOnScroll(liBtn, panel); });
 		document.addEventListener('click', () => { close(liBtn, panel); });
 	}
