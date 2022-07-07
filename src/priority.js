@@ -29,7 +29,7 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 	const lis = Array.from(menuBar.querySelectorAll('li'));
 
 	const menuBarStyle = getComputedStyle(menuBar);
-	const doAutoClose  = opts['doAutoClose'] ?? true;
+	const autoClose    = opts['autoClose'] ?? true;
 
 	let scrollTop = 0;
 	let columnGap = 0;
@@ -72,7 +72,7 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 	}, 10);
 	setTimeout(() => { root.classList.add(CLS_READY); }, 100);
 
-	if (doAutoClose) {
+	if (autoClose) {
 		onScroll(() => { doOnScroll(liBtn, panel); });
 		document.addEventListener('click', () => { close(liBtn, panel); });
 	}

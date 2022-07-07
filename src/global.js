@@ -95,8 +95,8 @@
 			this._panelParent = this._root.querySelector(GlobalNav.SEL_NAV_PANEL_PARENT);
 			this._alignPanel  = this._root.classList.contains('pulldown');
 
-			const doAutoClose                    = opts['doAutoClose']                    ?? true;
-			const doAutoScroll                   = opts['doAutoScroll']                   ?? true;
+			const autoClose                      = opts['autoClose']                      ?? true;
+			const autoScroll                     = opts['autoScroll']                     ?? true;
 			this._doSuppressClickCloseAfterHover = opts['doSuppressClickCloseAfterHover'] ?? false;
 			this._scrollViewOffset               = opts['scrollViewOffset']               ?? 20;
 			this._defMenuItem                    = opts['defaultMenuItem']                ?? null;
@@ -119,12 +119,12 @@
 
 			addScrollableDetectionTarget(this._bar);
 
-			if (doAutoClose) {
+			if (autoClose) {
 				onScroll(() => this.onScroll());
 				if (this._panelParent) this._panelParent.addEventListener('click', e => e.stopPropagation());
 				document.addEventListener('click', () => this.closeAll());
 			}
-			if (doAutoScroll) {
+			if (autoScroll) {
 				const mis = this._bar.querySelectorAll('a, button[data-panel]' + /**/', label[for]'/**/);
 				this.initializeAutoScroll(mis);
 			}
