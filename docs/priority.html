@@ -8,20 +8,23 @@
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="">
-<link rel="stylesheet" href="css/style.min.css?v164809t">
-<link rel="stylesheet" href="css/priority.min.css?v164809t">
-<script src="js/priority.min.js?v164809t"></script>
+<link rel="stylesheet" href="css/style.min.css?v170632t">
+<link rel="stylesheet" href="css/priority.min.css?v170632t">
+<script src="js/priority.min.js?v170632t"></script>
 </head>
 <body>
 <div class="content">
 
-	<h1>Gida Menu - Priority <small>v164809t</small></h1>
+	<h1>Gida Menu - Priority <small>v170632t</small></h1>
 	<nav>
 		<a href="index.html">Go Back</a>
 	</nav>
 
+	<h2>Popup Styles</h2>
+
+	<h3>Default (with popup hint)</h3>
 	<div class="frame-priority">
-		<nav id="mp0" class="gida-menu-priority pulldown" role="navigation">
+		<nav id="mp0" class="gida-menu-priority with-popup-hint" role="navigation">
 			<div class="gida-menu-priority-bar">
 				<ul class="menu">
 					<li><a href="#1"><div>Menu Item 1</div></a></li>
@@ -29,11 +32,37 @@
 					<li><a href="#3"><div>Menu Item 3</div></a></li>
 					<li class="current"><a href="#4"><div>Menu Item 4</div></a></li>
 					<li><a href="#5"><div>Menu Item 5</div></a></li>
+					<li><a href="#6"><div>Menu Item 6</div></a></li>
 				</ul>
 			</div>
 		</nav>
-		<script>GIDA.menu_priority('mp0', { autoClose: true, alignPanel: true });</script>
+		<script>GIDA.menu_priority('mp0', { doAutoClose: true });</script>
 	</div>
+
+	<h3>Pulldown (with popup hint)</h3>
+	<div class="frame-priority">
+		<nav id="mp1" class="gida-menu-priority pulldown with-popup-hint" role="navigation">
+			<div class="gida-menu-priority-bar">
+				<ul class="menu">
+					<li><a href="#1"><div>Menu Item 1</div></a></li>
+					<li><a href="#2"><div>Menu Item 2</div></a></li>
+					<li><a href="#3"><div>Menu Item 3</div></a></li>
+					<li class="current"><a href="#4"><div>Menu Item 4</div></a></li>
+					<li><a href="#5"><div>Menu Item 5</div></a></li>
+					<li><a href="#6"><div>Menu Item 6</div></a></li>
+				</ul>
+			</div>
+		</nav>
+		<script>GIDA.menu_priority('mp1', { doAutoClose: true });</script>
+	</div>
+
+	<h2>Options</h2>
+
+	<pre><code>
+{
+    doAutoClose: true,
+}
+	</code></pre>
 
 	<div class="spacer" style="height: 200vh;"></div>
 

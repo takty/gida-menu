@@ -8,23 +8,23 @@
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="">
-<link rel="stylesheet" href="css/style.min.css?v164809t">
-<link rel="stylesheet" href="css/global.min.css?v164809t">
-<script src="js/global.min.js?v164809t"></script>
+<link rel="stylesheet" href="css/style.min.css?v170632t">
+<link rel="stylesheet" href="css/global.min.css?v170632t">
+<script src="js/global.min.js?v170632t"></script>
 </head>
 <body>
 <div class="content">
 
-	<h1>Gida Menu - Global <small>v164809t</small></h1>
+	<h1>Gida Menu - Global <small>v170632t</small></h1>
 	<nav>
 		<a href="index.html">Go Back</a>
 	</nav>
 
 	<h2>Popup Styles</h2>
 
-	<h3>Default</h3>
+	<h3>Default (with popup hint)</h3>
 	<div class="frame-global">
-		<nav id="mg0" class="gida-menu-global" role="navigation">
+		<nav id="mg0" class="gida-menu-global with-popup-hint" role="navigation">
 			<div class="gida-menu-global-bar">
 				<ul class="menu">
 					<li><a href="#"><div>Menu Item 1</div></a></li>
@@ -46,19 +46,19 @@
 				</div>
 				<div id="mg0-panel-2" class="gida-menu-global-panel">
 					<ul class="menu">
-						<li><a href="#"><div>Sub Menu Item 7-1</div></a></li>
+						<li><a href="#"><div>Sub Menu Item 7-1</div><div class="description">Description text is here.</div></a></li>
 						<li><a href="#"><div>Sub Menu Item 7-2</div></a></li>
 						<li><a href="#"><div>Sub Menu Item 7-3</div></a></li>
 					</ul>
 				</div>
 			</div>
 		</nav>
-		<script>GIDA.menu_global('mg0', { autoClose: true });</script>
+		<script>GIDA.menu_global('mg0', { doAutoClose: true });</script>
 	</div>
 
-	<h3>Pulldown</h3>
+	<h3>Pulldown (with popup hint)</h3>
 	<div class="frame-global">
-		<nav id="mg1" class="gida-menu-global pulldown" role="navigation">
+		<nav id="mg1" class="gida-menu-global pulldown with-popup-hint" role="navigation">
 			<div class="gida-menu-global-bar">
 				<ul class="menu">
 					<li><a href="#"><div>Menu Item 1</div></a></li>
@@ -84,7 +84,7 @@
 						<li>
 							<a href="#"><div>Sub Menu Item 7-2</div></a>
 							<ul class="menu">
-								<li><a href="#"><div>Sub Menu Item 7-2-1</div></a></li>
+								<li><a href="#"><div>Sub Menu Item 7-2-1</div><div class="description">Description text is here.</div></a></li>
 								<li><a href="#"><div>Sub Menu Item 7-2-2</div></a></li>
 								<li><a href="#"><div>Sub Menu Item 7-2-3</div></a></li>
 							</ul>
@@ -94,20 +94,20 @@
 				</div>
 			</div>
 		</nav>
-		<script>GIDA.menu_global('mg1', { autoClose: true });</script>
+		<script>GIDA.menu_global('mg1', { doAutoClose: true });</script>
 	</div>
 
 	<h2>Options</h2>
 
 	<pre><code>
 {
-    autoClose                   : true,
-    autoScroll                  : true,
-    suppressClickCloseAfterHover: false,
-    scrollViewOffset            : 20,
-    defaultMenuItem             : null,
-    childNav                    : null,
-    onBeforeOpen                : null,
+    doAutoClose                   : true,
+    doAutoScroll                  : true,
+    doSuppressClickCloseAfterHover: false,
+    scrollViewOffset              : 20,
+    defaultMenuItem               : null,
+    childNav                      : null,
+    onBeforeOpen                  : null,
 }
 	</code></pre>
 
