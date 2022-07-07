@@ -2,7 +2,7 @@
  * Gida Menu - Global
  *
  * @author Takuto Yanagida
- * @version 2022-07-07
+ * @version 2022-07-08
  */
 
 
@@ -252,6 +252,7 @@
 		&.active.opened {
 			opacity   : 1;
 			transition: opacity 0.20s;
+			z-index   : 1001;
 		}
 		&:not(.active).opened {
 			transition: opacity 0.25s 0.1s;
