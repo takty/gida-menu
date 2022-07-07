@@ -2,7 +2,7 @@
  * Gida Menu - Global
  *
  * @author Takuto Yanagida
- * @version 2022-06-01
+ * @version 2022-07-07
  */
 
 
@@ -10,7 +10,6 @@
 
 
 .gida-menu-global {
-	--bar-mark-color  : #000;
 	--bar-item-width  : unset;
 	--bar-item-height : 3rem;
 	--bar-item-padding: 0.75rem 1rem;
@@ -19,6 +18,10 @@
 	--bar-scroll-shadow-end    : #{rgba(#000, 0.00)};
 	--bar-scroll-scroller-start: #{rgba(#fff, 0.90)};
 	--bar-scroll-scroller-end  : #{rgba(#fff, 0.00)};
+	--bar-scroll-mark-color    : #000;
+
+	--bar-mark-color: #000;
+	--bar-mark-path : polygon(0% 20%, 100% 20%, 50% 95%);
 
 	--panel-bg-color    : #fff;
 	--panel-shadow      : 0 4px 8px 0 rgba(0, 0, 0, 0.25);
@@ -44,14 +47,20 @@
 	:is(li, a, button, label) {
 		transition-duration: 0.2s;
 		transition-property: color, background-color;
-		&::before, &::after { transition: all 0.2s ease; }
+
+		&::before,
+		&::after {
+			transition: all 0.2s;
+		}
 	}
 
 	:is(a, button, label) {
 		user-select: none;
 	}
 
-	a { text-decoration: none; }
+	a {
+		text-decoration: none;
+	}
 
 	button {
 		appearance: none;
@@ -77,7 +86,9 @@
 	overflow-y: hidden;
 
 	scroll-behavior: smooth;
-	&::-webkit-scrollbar { display: none; }
+	&::-webkit-scrollbar {
+		display: none;
+	}
 	scrollbar-width: none;
 
 	.menu {
@@ -112,7 +123,7 @@
 	}
 
 	.gida-menu-global.box-shadow & {
-		&::before { background-image: linear-gradient(to left, var(--bar-scroll-shadow-start), var(--bar-scroll-shadow-end)); }
+		&::before { background-image: linear-gradient(to left,  var(--bar-scroll-shadow-start), var(--bar-scroll-shadow-end)); }
 		&::after  { background-image: linear-gradient(to right, var(--bar-scroll-shadow-start), var(--bar-scroll-shadow-end)); }
 	}
 
@@ -123,8 +134,8 @@
 		width   : 32px;
 		z-index : 1;
 
-		transition: all 0.2s ease;
-		opacity: 0;
+		transition    : all 0.2s;
+		opacity       : 0;
 		pointer-events: none;
 
 		background-image: radial-gradient(farthest-side at center left,  var(--bar-scroll-scroller-start), var(--bar-scroll-scroller-end));
@@ -137,8 +148,8 @@
 			top     : 50%;
 			left    : 50%;
 
-			border-top : 2px solid var(--bar-mark-color);
-			border-left: 2px solid var(--bar-mark-color);
+			border-top : 2px solid var(--bar-scroll-mark-color);
+			border-left: 2px solid var(--bar-scroll-mark-color);
 
 			transform: translate(-50%, -50%) rotate(-45deg);
 		}
@@ -175,8 +186,6 @@
 		flex-grow: 1;
 
 		> :is(/**/label,/**/ a, button) {
-			position: relative;
-
 			display        : flex;
 			flex-direction : column;
 			justify-content: center;
@@ -189,32 +198,36 @@
 			white-space: nowrap;
 		}
 
-		> :is(/**/label,/**/ button)::after {
-			display: inline-block;
-
-			content : '';
-			position: absolute;
-			width   : 0.5rem;
-			height  : 0.5rem;
-			left    : 50%;
-			bottom  : 0.15rem;
-
-			clip-path : polygon(0% 20%, 100% 20%, 50% 95%);
-			box-shadow: 0 0 1rem var(--bar-mark-color) inset;
-
-			transform: translateX(-50%);
-		}
-
 		&.current {
 			:is(/**/label,/**/ a, button) {
 				pointer-events : none;
 			}
 		}
+	}
+}
 
+.gida-menu-global.with-popup-hint .gida-menu-global-bar {
+
+	.menu > li {
+		> :is(/**/label,/**/ button) {
+			position: relative;
+
+			&::after {
+				content : '';
+				position: absolute;
+				width   : 0.5rem;
+				height  : 0.5rem;
+				left    : calc(50% - 0.25rem);
+				bottom  : 0.15rem;
+
+				clip-path : var(--bar-mark-path);
+				box-shadow: 0 0 1rem var(--bar-mark-color) inset;
+			}
+		}
 		&.opened {
 			> :is(/**/label,/**/ button) {
 				&::after {
-					transform: translateX(-50%) scaleY(-1);
+					transform: scaleY(-1);
 				}
 			}
 		}
@@ -230,15 +243,19 @@
 
 	.gida-menu-global-panel {
 		display: none;
-		&:is(.active, .opened) { display: block; }
+		&:is(.active, .opened) {
+			display: block;
+		}
 
 		opacity: 0;
 
 		&.active.opened {
 			opacity   : 1;
-			transition: opacity 0.20s ease;
+			transition: opacity 0.20s;
 		}
-		&:not(.active).opened { transition: opacity 0.25s ease 0.1s; }
+		&:not(.active).opened {
+			transition: opacity 0.25s 0.1s;
+		}
 	}
 }
 
@@ -298,10 +315,12 @@
 			padding   : var(--panel-item-padding);
 
 			> div {
-				display: inline-block;
+				display   : inline-block;
 				text-align: left;
 			}
-			span { display: inline-block; }
+			span {
+				display: inline-block;
+			}
 		}
 
 		&.current {

@@ -2,7 +2,7 @@
  * Gida Menu - Priority
  *
  * @author Takuto Yanagida
- * @version 2022-06-01
+ * @version 2022-07-07
  */
 
 
@@ -10,10 +10,12 @@
 
 
 .gida-menu-priority {
-	--bar-mark-color  : #000;
 	--bar-item-width  : unset;
 	--bar-item-height : 3rem;
 	--bar-item-padding: 0.75rem 1rem;
+
+	--bar-mark-color: #000;
+	--bar-mark-path :  polygon(0% 20%, 100% 20%, 50% 95%);
 
 	--panel-offset      : 0.25rem;
 	--panel-bg-color    : #fff;
@@ -40,14 +42,20 @@
 	:is(li, a, button) {
 		transition-duration: 0.2s;
 		transition-property: color, background-color;
-		&::before, &::after { transition: all 0.2s ease; }
+
+		&::before,
+		&::after {
+			transition: all 0.2s;
+		}
 	}
 
 	:is(a, button) {
 		user-select: none;
 	}
 
-	a { text-decoration: none; }
+	a {
+		text-decoration: none;
+	}
 
 	button {
 		appearance: none;
@@ -104,8 +112,6 @@
 		flex-grow: 1;
 
 		> :is(a, button) {
-			position: relative;
-
 			display        : flex;
 			align-items    : center;
 			justify-content: center;
@@ -114,6 +120,7 @@
 
 			white-space: nowrap;
 		}
+
 		> a {
 			width     : 100%;
 			min-width : var(--bar-item-width);
@@ -128,21 +135,28 @@
 			place-items: center;
 		}
 
-		> button::after {
-			display: inline-block;
-
-			content : '';
-			position: absolute;
-			width   : 0.5rem;
-			height  : 0.5rem;
-
-			clip-path : polygon(0% 20%, 100% 20%, 50% 95%);
-			box-shadow: 0 0 1rem var(--bar-mark-color) inset;
-		}
-
 		&.current {
 			:is(a, button) {
 				pointer-events : none;
+			}
+		}
+	}
+}
+
+.gida-menu-priority.with-popup-hint .gida-menu-priority-bar {
+
+	.menu > li {
+		> button {
+			position: relative;
+
+			&::after {
+				content : '';
+				position: absolute;
+				width   : 0.5rem;
+				height  : 0.5rem;
+
+				clip-path : var(--bar-mark-path);
+				box-shadow: 0 0 1rem var(--bar-mark-color) inset;
 			}
 		}
 
@@ -165,19 +179,18 @@
 
 	.gida-menu-priority-panel {
 		display: none;
-		&:is(.active, .opened) { display: block; }
+		&:is(.active, .opened) {
+			display: block;
+		}
 
 		opacity: 0;
 
 		&.active.opened {
 			opacity   : 1;
-			transition: opacity 0.20s ease;
+			transition: opacity 0.20s;
 		}
-		&:not(.active).opened { transition: opacity 0.25s ease 0.1s; }
-	}
-	&.pulldown .gida-menu-priority-panel {
-		@include for-ta {
-			width: fit-content;
+		&:not(.active).opened {
+			transition: opacity 0.25s 0.1s;
 		}
 	}
 }
@@ -236,10 +249,12 @@
 			padding   : var(--panel-item-padding);
 
 			> div {
-				display: inline-block;
+				display   : inline-block;
 				text-align: left;
 			}
-			span { display: inline-block; }
+			span {
+				display: inline-block;
+			}
 		}
 
 		&.current {
