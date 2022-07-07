@@ -20,6 +20,38 @@
 
 	// @include _common.js
 
+	function addEventListenerEnterAndStop(target, callback) {
+		let st           = null;
+		let doing        = false;
+		let [lx, ly, lt] = [0, 0, 0];
+
+		const cb = () => {
+			doing = false;
+			callback();
+		};
+		const v = (e) => {
+			const [x, y, t] = [e.clientX, e.clientY, e.timeStamp];
+			const v = ((x - lx) * (x - lx) + (y - ly) * (y - ly)) / (t - lt);
+			[lx, ly, lt] = [x, y, t];
+			return v;
+		}
+
+		target.addEventListener('pointerenter', () => {
+			doing = true;
+		});
+		target.addEventListener('pointermove', (e) => {
+			if (!doing) return;
+			if (0.1 < v(e)) {
+				clearTimeout(st);
+				st = setTimeout(cb, 50);
+			}
+		})
+		target.addEventListener('pointerleave', () => {
+			clearTimeout(st);
+			doing = false;
+		});
+	}
+
 
 	// -------------------------------------------------------------------------
 
@@ -128,7 +160,7 @@
 			for (const it of items) {
 				it.addEventListener('click', (e) => { e.stopPropagation(); });  // For preventing auto-close
 
-				it.addEventListener('pointerenter',  this.createEventListenerEnter(it));
+				addEventListenerEnterAndStop(it,     this.createEventListenerEnter(it));
 				it.addEventListener('pointerdown',   this.createEventListenerDown());
 				it.addEventListener('touchstart',    this.createEventListenerTouchStart());
 				it.addEventListener('pointermove',   this.createEventListenerMove());
@@ -198,7 +230,7 @@
 			return () => {
 				if (item !== this._openItem) {
 					this.cancelTimeout();
-					this._st = setTimeout(() => this.open(item, true), this._openItem !== null ? 400 : 200);
+					this._st = setTimeout(() => this.open(item, true), 100);
 				}
 			};
 		}
