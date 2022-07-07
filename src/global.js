@@ -95,13 +95,13 @@
 			this._panelParent = this._root.querySelector(GlobalNav.SEL_NAV_PANEL_PARENT);
 			this._alignPanel  = this._root.classList.contains('pulldown');
 
-			const autoClose                      = opts['autoClose']                      ?? true;
-			const autoScroll                     = opts['autoScroll']                     ?? true;
-			this._doSuppressClickCloseAfterHover = opts['doSuppressClickCloseAfterHover'] ?? false;
-			this._scrollViewOffset               = opts['scrollViewOffset']               ?? 20;
-			this._defMenuItem                    = opts['defaultMenuItem']                ?? null;
-			this._child                          = opts['childNav']                       ?? null;
-			this._onBeforeOpen                   = opts['onBeforeOpen']                   ?? null;
+			const autoClose                 = opts['autoClose']                 ?? true;
+			const autoScroll                = opts['autoScroll']                ?? true;
+			this._scrollViewOffset          = opts['scrollViewOffset']          ?? 20;
+			this._defMenuItem               = opts['defaultMenuItem']           ?? null;
+			this._child                     = opts['childNav']                  ?? null;
+			this._onBeforeOpen              = opts['onBeforeOpen']              ?? null;
+			this._doSuppressCloseAfterHover = opts['doSuppressCloseAfterHover'] ?? false;
 
 			if (this._panelParent) {
 				this._panels = Array.prototype.slice.call(this._panelParent.children);
@@ -278,7 +278,7 @@
 				if (t - this._openTime < 200) return;
 				if (item === this._openItem) {
 					if (this._isOpenedByHover) {
-						if (this._doSuppressClickCloseAfterHover) return;
+						if (this._doSuppressCloseAfterHover) return;
 						if (t - this._openTime < 400) return;
 					}
 					this.closeAll();
