@@ -2,7 +2,7 @@
  * Gida Menu - Priority
  *
  * @author Takuto Yanagida
- * @version 2022-07-07
+ * @version 2022-07-08
  */
 
 
@@ -190,7 +190,7 @@
 			transition: opacity 0.20s;
 		}
 		&:not(.active).opened {
-			transition: opacity 0.25s 0.1s;
+			transition: opacity 0.15s 0.1s;
 		}
 	}
 }

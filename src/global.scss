@@ -255,7 +255,7 @@
 			z-index   : 1001;
 		}
 		&:not(.active).opened {
-			transition: opacity 0.25s 0.1s;
+			transition: opacity 0.15s 0.1s;
 		}
 	}
 }
