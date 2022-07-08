@@ -93,7 +93,7 @@
 			const menuItems   = this._root.querySelectorAll('.menu > li');
 			const popupItems  = this._bar.querySelectorAll('button[data-panel]' + /**/', label[for]'/**/);
 			this._panelParent = this._root.querySelector(GlobalNav.SEL_NAV_PANEL_PARENT);
-			this._alignPanel  = this._root.classList.contains('pulldown');
+			this._isPulldown  = this._root.classList.contains('pulldown');
 
 			const autoClose                 = opts['autoClose']                 ?? true;
 			const autoScroll                = opts['autoScroll']                ?? true;
@@ -101,6 +101,7 @@
 			this._defMenuItem               = opts['defaultMenuItem']           ?? null;
 			this._child                     = opts['childNav']                  ?? null;
 			this._onBeforeOpen              = opts['onBeforeOpen']              ?? null;
+			this._doSetPanelWidth           = opts['doSetPanelWidth']           ?? false;
 			this._doSuppressCloseAfterHover = opts['doSuppressCloseAfterHover'] ?? false;
 
 			if (this._panelParent) {
@@ -331,7 +332,7 @@
 					p.classList.add(GlobalNav.CLS_OPENED);
 					p.focus();
 				}
-				if (this._alignPanel) this.alignPanel(item, p);
+				if (this._isPulldown) this.alignPanel(item, p);
 				if (this._onBeforeOpen) this._onBeforeOpen(item, p);
 			}, 0);
 			this._openItem        = item;
@@ -395,8 +396,11 @@
 			if (!panel) return;
 			const w = window.innerWidth;
 			if (w <= 600) {
-				panel.style.left  = '';
-				panel.style.right = '';
+				panel.style.left     = '';
+				panel.style.right    = '';
+				if (this._doSetPanelWidth) {
+					panel.style.minWidth = '';
+				}
 				return;
 			}
 			const bcrI  = item.getBoundingClientRect();
@@ -406,12 +410,12 @@
 			const wPP   = bcrPP.right - bcrPP.left;
 			const l     = bcrI.left   - bcrPP.left;
 
-			if (wPP < l + wP + 16) {
-				panel.style.left  = 'unset';
-				panel.style.right = '0px';
-			} else {
-				panel.style.left  = l + 'px';
-				panel.style.right = 'unset';
+			const alignRight = (wPP < l + wP + 16);
+
+			panel.style.left     = alignRight ? 'unset' : `${l}px`;
+			panel.style.right    = alignRight ? '0px'   : 'unset';
+			if (this._doSetPanelWidth) {
+				panel.style.minWidth = (bcrI.right - bcrI.left) + 'px';
 			}
 		}
 
