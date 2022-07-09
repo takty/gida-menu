@@ -2,7 +2,7 @@
  * Styles for Sample
  *
  * @author Takuto Yanagida
- * @version 2021-09-25
+ * @version 2022-07-09
  */
 
 
@@ -61,5 +61,14 @@ pre {
 
 	.description {
 		font-size: small;
+	}
+
+	&.flex {
+		display  : flex;
+		flex-wrap: wrap;
+
+		.gida-menu-priority {
+			flex-grow: 1;
+		}
 	}
 }
