@@ -2,7 +2,7 @@
  * Gida Menu - Priority
  *
  * @author Takuto Yanagida
- * @version 2022-07-08
+ * @version 2022-07-09
  */
 
 
@@ -218,7 +218,6 @@
 		margin: auto;
 
 		display        : flex;
-		align-items    : center;
 		justify-content: center;
 
 		.gida-menu-priority.pulldown & {
@@ -243,6 +242,8 @@
 			display        : flex;
 			align-items    : center;
 			justify-content: flex-start;
+
+			height: 100%;
 
 			min-width : var(--panel-item-width);
 			min-height: var(--panel-item-height);
