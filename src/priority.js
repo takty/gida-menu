@@ -2,7 +2,7 @@
  * Gida Menu - Priority
  *
  * @author Takuto Yanagida
- * @version 2022-07-07
+ * @version 2022-07-09
  */
 
 
@@ -68,7 +68,10 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 		columnGap = parseInt(menuBarStyle.columnGap, 10);
 		columnGap = Number.isNaN(columnGap) ? 0 : columnGap;
 		alignItems(ws, menuBar, menuPanel, lis, liBtn);
-		onResize(() => { alignItems(ws, menuBar, menuPanel, lis, liBtn); });
+		onResize(() => {
+			setMaxWidth(root);
+			alignItems(ws, menuBar, menuPanel, lis, liBtn);
+		});
 	}, 10);
 	setTimeout(() => { root.classList.add(CLS_READY); }, 100);
 
@@ -135,6 +138,14 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 		) {
 			close(liBtn, panel);
 		}
+	}
+
+	function setMaxWidth(root) {
+		const p  = root.parentElement;
+		const cs = getComputedStyle(p);
+		const w  = p.clientWidth - (parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight));
+
+		root.style.maxWidth = w + 'px';
 	}
 
 	function alignItems(ws, menuBar, menuPanel, lis, liBtn) {
