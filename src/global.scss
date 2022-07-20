@@ -2,7 +2,7 @@
  * Gida Menu - Global
  *
  * @author Takuto Yanagida
- * @version 2022-07-08
+ * @version 2022-07-20
  */
 
 
@@ -224,6 +224,7 @@
 				box-shadow: 0 0 1rem var(--bar-mark-color) inset;
 			}
 		}
+
 		&.opened {
 			> :is(/**/label,/**/ button) {
 				&::after {
@@ -325,7 +326,7 @@
 		}
 
 		&.current {
-			:is(a, label) {
+			> a {
 				pointer-events : none;
 			}
 		}
