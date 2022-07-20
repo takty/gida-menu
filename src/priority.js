@@ -2,7 +2,7 @@
  * Gida Menu - Priority
  *
  * @author Takuto Yanagida
- * @version 2022-07-09
+ * @version 2022-07-14
  */
 
 
@@ -26,7 +26,7 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 	if (!root) return;
 	const menuBar = root.querySelector('.menu') ?? root.getElementsByTagName('ul')[0];
 	if (!menuBar) return;
-	const lis = Array.from(menuBar.querySelectorAll('li'));
+	const lis = Array.from(menuBar.querySelectorAll(':scope > li'));
 
 	const menuBarStyle = getComputedStyle(menuBar);
 	const autoClose    = opts['autoClose'] ?? true;
