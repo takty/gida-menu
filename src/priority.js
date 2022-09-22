@@ -2,7 +2,7 @@
  * Gida Menu - Priority
  *
  * @author Takuto Yanagida
- * @version 2022-07-14
+ * @version 2022-09-22
  */
 
 
@@ -149,7 +149,10 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 	}
 
 	function alignItems(ws, menuBar, menuPanel, lis, liBtn) {
+		menuBar.style.width = '0';
 		let remW = menuBar.parentElement.getBoundingClientRect().width;
+		menuBar.style.width = null;
+
 		let sep  = lis.length;
 
 		const btnW = liBtn.clientWidth;
