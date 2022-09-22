@@ -69,6 +69,7 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 		columnGap = Number.isNaN(columnGap) ? 0 : columnGap;
 		alignItems(ws, menuBar, menuPanel, lis, liBtn);
 		onResize(() => {
+			close(liBtn, panel);
 			setMaxWidth(root);
 			alignItems(ws, menuBar, menuPanel, lis, liBtn);
 		});
