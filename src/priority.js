@@ -2,7 +2,7 @@
  * Gida Menu - Priority
  *
  * @author Takuto Yanagida
- * @version 2022-09-22
+ * @version 2022-09-24
  */
 
 
@@ -30,6 +30,10 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 
 	const menuBarStyle = getComputedStyle(menuBar);
 	const autoClose    = opts['autoClose'] ?? true;
+	const reversed     = opts['reversed']  ?? false;
+	const btnPos       = opts['buttonPosition'] ?? 'end';  // 'start' or 'end';
+
+	const order = initOrder(lis, reversed);
 
 	let scrollTop = 0;
 	let columnGap = 0;
@@ -47,7 +51,11 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 	const [panel, menuPanel] = initPanel(root);
 	const [liBtn, btn]       = initButton(menuBar);
 
-	menuBar.appendChild(liBtn);
+	if ('end' === btnPos) {
+		menuBar.append(liBtn);
+	} else if ('start' === btnPos) {
+		menuBar.prepend(liBtn);
+	}
 
 	btn.addEventListener('click', (e) => {
 		if (liBtn.classList.contains(CLS_OPENED)) {
@@ -85,12 +93,41 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 	// -------------------------------------------------------------------------
 
 
+	function initOrder(lis, reversed) {
+		const ws = new Array(lis.length);
+		for (let i = 0; i < lis.length; i += 1) {
+			ws[i] = getWeightFromClass(lis[i], lis.length - i);
+		}
+		const order = new Array(lis.length);
+		for (let i = 0; i < lis.length; i += 1) order[i] = i;
+		order.sort((a, b) => ws[a] < ws[b] ? 1 : ws[a] > ws[b] ? -1 : 0);
+
+		if (reversed) {
+			order.reverse();
+		}
+		return order;
+	}
+
+	function getWeightFromClass(li, def) {
+		const cs = li.className.split(' ');
+		let w = null;
+		for (const c of cs) {
+			const n = parseInt(c, 10);
+			if (isNaN(n)) continue;
+			if (null === w || w < n) w = n;
+		}
+		return w ?? def;
+	}
+
 	function initPanel(root) {
 		const panelParent = document.createElement('div');
 		panelParent.classList.add(CLS_PANELS);
 
 		const panel = document.createElement('div');
 		panel.classList.add(CLS_PANEL);
+		if ('end' === btnPos || 'start' === btnPos) {
+			panel.classList.add('end' === btnPos ? 'end' : 'start');
+		}
 
 		const menu = document.createElement('ul');
 		menu.classList.add('menu');
@@ -151,34 +188,53 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 
 	function alignItems(ws, menuBar, menuPanel, lis, liBtn) {
 		menuBar.style.width = '0';
-		let remW = menuBar.parentElement.getBoundingClientRect().width;
+		let barW = menuBar.parentElement.getBoundingClientRect().width;
 		menuBar.style.width = null;
 
-		let sep  = lis.length;
+		const [inBar, withPanel] = calcItemPlace(barW, ws, lis, liBtn, columnGap);
+		liBtn.style.display = withPanel ? null : 'none';
 
-		const btnW = liBtn.clientWidth;
-		const sum  = ws.reduce((s, v) => s + v) + (columnGap * (ws.length - 1));
+		for (let i = 0; i < lis.length; i += 1) {
+			if (!inBar[i]) continue;
+			if (lis[i].parentElement === menuBar) {
+				ws[i] = lis[i].offsetWidth;
+			}
+			if ('end' === btnPos) {
+				menuBar.insertBefore(lis[i], liBtn);
+			} else if ('start' === btnPos) {
+				menuBar.appendChild(lis[i], liBtn);
+			}
+		}
 
-		if (remW < sum) {
-			remW -= btnW;
-			for (let i = 0; i < ws.length; i += 1) {
-				if ((remW -= ws[i] + columnGap) < 0) {
-					sep = i;
+		columnGap = parseInt(menuBarStyle.columnGap, 10);
+		columnGap = Number.isNaN(columnGap) ? 0 : columnGap;
+
+		for (let i = 0; i < lis.length; i += 1) {
+			if (!inBar[i]) menuPanel.appendChild(lis[i]);
+		}
+	}
+
+	function calcItemPlace(barW, ws, lis, liBtn, columnGap) {
+		const inBar = new Array(lis.length);
+		inBar.fill(true);
+
+		const sumW  = ws.reduce((s, v) => s + v) + (columnGap * (ws.length - 1));
+
+		if (barW < sumW) {
+			barW -= liBtn.clientWidth;
+
+			let toPanel = lis.length;
+			for (let i = 0; i < lis.length; i += 1) {
+				if ((barW -= ws[order[i]] + columnGap) < 0) {
+					toPanel = i;
 					break;
 				}
 			}
-		}
-		for (let i = 0; i < sep; i += 1) {
-			if (lis[i].parentElement === menuBar) {
-				ws[i] = lis[i].offsetWidth;
-			} else {
-				menuBar.insertBefore(lis[i], liBtn);
+			for (let i = toPanel; i < lis.length; i += 1) {
+				inBar[order[i]] = false;
 			}
 		}
-		columnGap = parseInt(menuBarStyle.columnGap, 10);
-		columnGap = Number.isNaN(columnGap) ? 0 : columnGap;
-		for (let i = sep; i < lis.length; i += 1) menuPanel.appendChild(lis[i]);
-		liBtn.style.display = (sep === lis.length) ? 'none' : '';
+		return [inBar, barW < sumW];
 	}
 
 };
