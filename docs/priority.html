@@ -1,21 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta charset="utf-8">
 <title>Gida Menu - Priority</title>
 <meta name="description" content="">
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="">
-<link rel="stylesheet" href="css/style.min.css?v165907t">
-<link rel="stylesheet" href="css/priority.min.css?v165907t">
-<script src="js/priority.min.js?v165907t"></script>
+<link rel="stylesheet" href="css/style.min.css?v001320t">
+<link rel="stylesheet" href="css/priority.min.css?v001320t">
+<script src="js/priority.min.js?v001320t"></script>
 </head>
 <body>
 <div class="content">
 
-	<h1>Gida Menu - Priority <small>v165907t</small></h1>
+	<h1>Gida Menu - Priority <small>v001320t</small></h1>
 	<nav>
 		<a href="index.html">Go Back</a>
 	</nav>
@@ -60,15 +59,38 @@
 
 	<pre><code>
 {
-    autoClose: true,
+    autoClose     : true,
+    reversed      : false,
+    buttonPosition: 'end',  // or 'start'
 }
 	</code></pre>
 
-	<h2>With flex-wrap: wrap</h2>
+	<h2>In Case of Complex Configurations</h2>
 
-	<div class="frame-priority flex">
-		<img src="https://placehold.jp/200x50.png">
-		<nav id="mp2" class="gida-menu-priority pulldown with-popup-hint" role="navigation">
+	<h3>With flex-wrap: wrap</h3>
+
+	<div class="frame-priority flex-wrap-wrap">
+		<img src="https://placehold.jp/200x48.png">
+		<div>
+			<nav id="mp2" class="gida-menu-priority pulldown with-popup-hint" role="navigation">
+				<div class="gida-menu-priority-bar">
+					<ul class="menu">
+						<li><a href="#1"><div>Menu Item 1</div></a></li>
+						<li><a href="#2"><div>Menu Item 2</div></a></li>
+						<li><a href="#3"><div>Menu Item 3</div></a></li>
+						<li class="current"><a href="#4"><div>Menu Item 4</div></a></li>
+					</ul>
+				</div>
+			</nav>
+		</div>
+		<script>GIDA.menu_priority('mp2', { autoClose: true });</script>
+	</div>
+
+	<h3>With fixed width elements</h3>
+
+	<div class="frame-priority fixed-width-element">
+		<img src="https://placehold.jp/100x48.png">
+		<nav id="mp3" class="gida-menu-priority pulldown with-popup-hint" role="navigation">
 			<div class="gida-menu-priority-bar">
 				<ul class="menu">
 					<li><a href="#1"><div>Menu Item 1</div></a></li>
@@ -78,7 +100,24 @@
 				</ul>
 			</div>
 		</nav>
-		<script>GIDA.menu_priority('mp2', { autoClose: true });</script>
+		<img src="https://placehold.jp/100x48.png">
+		<script>GIDA.menu_priority('mp3', { autoClose: true });</script>
+	</div>
+
+	<h2>With Weights</h2>
+
+	<div class="frame-priority">
+		<nav id="mp4" class="gida-menu-priority pulldown with-popup-hint" role="navigation">
+			<div class="gida-menu-priority-bar">
+				<ul class="menu">
+					<li class=""><a href="#1"><div>Weight (-)</div></a></li>
+					<li class="50"><a href="#2"><div>Weight (50)</div></a></li>
+					<li class=""><a href="#3"><div>Weight (-)</div></a></li>
+					<li class="100"><a href="#4"><div>Weight (100)</div></a></li>
+				</ul>
+			</div>
+		</nav>
+		<script>GIDA.menu_priority('mp4', { autoClose: true });</script>
 	</div>
 
 	<div class="spacer" style="height: 100vh;"></div>

@@ -2,12 +2,12 @@
  * Styles for Sample
  *
  * @author Takuto Yanagida
- * @version 2022-07-09
+ * @version 2022-09-22
  */
-
 
 @use "sass:math";
 
+// *, *::before, *::after { outline: 1px solid rgba(red, 0.5); }
 
 :root {
 	font-size  : 16px;
@@ -24,6 +24,14 @@ body {
 
 h1 small {
 	font-size: small;
+}
+
+h2 {
+	margin-block-start: 6rem;
+}
+
+h3 {
+	margin-block-start: 2rem;
 }
 
 pre {
@@ -63,9 +71,18 @@ pre {
 		font-size: small;
 	}
 
-	&.flex {
+	&.flex-wrap-wrap {
 		display  : flex;
 		flex-wrap: wrap;
+
+		> div {
+			flex-grow: 1;
+			width: min(calc(100vw - 2rem), 32rem);
+		}
+	}
+
+	&.fixed-width-element {
+		display: flex;
 
 		.gida-menu-priority {
 			flex-grow: 1;
