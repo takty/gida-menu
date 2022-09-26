@@ -2,7 +2,7 @@
  * Gida Menu - Priority
  *
  * @author Takuto Yanagida
- * @version 2022-09-23
+ * @version 2022-09-26
  */
 
 
@@ -80,6 +80,7 @@
 	overflow-y: visible;
 	overflow-x: hidden;
 	opacity   : 0;
+
 	&.ready {
 		transition: opacity 0.1s;
 		overflow-x: visible;
@@ -116,23 +117,12 @@
 			align-items    : center;
 			justify-content: center;
 
-			min-height: var(--bar-item-height);
-
-			white-space: nowrap;
-		}
-
-		> a {
 			width     : 100%;
 			min-width : var(--bar-item-width);
+			min-height: var(--bar-item-height);
 			padding   : var(--bar-item-padding);
-		}
 
-		> button {
-			min-width: var(--bar-item-height);
-			max-width: var(--bar-item-height);
-
-			display    : grid;
-			place-items: center;
+			white-space: nowrap;
 		}
 
 		&.current {
@@ -140,13 +130,22 @@
 				pointer-events : none;
 			}
 		}
+
+		> .gida-menu-priority-button {
+			display    : grid;
+			place-items: center;
+
+			min-width: var(--bar-item-height);
+			max-width: var(--bar-item-height);
+			padding  : 0;
+		}
 	}
 }
 
 .gida-menu-priority.with-popup-hint .gida-menu-priority-bar {
 
 	.menu > li {
-		> button {
+		.gida-menu-priority-button {
 			position: relative;
 
 			&::after {
@@ -161,7 +160,7 @@
 		}
 
 		&.opened {
-			> button {
+			.gida-menu-priority-button {
 				&::after {
 					transform: scaleY(-1);
 				}
@@ -204,12 +203,8 @@
 	top     : 0;
 	z-index : 1000;
 
-	&.end {
-		right: 0;
-	}
-	&.start {
-		left: 0;
-	}
+	&.end   { right: 0; }
+	&.start { left : 0; }
 
 	.gida-menu-priority.pulldown & {
 		@include for-ta {
