@@ -197,6 +197,7 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 
 		if ('false' === getComputedStyle(menuBar).getPropertyValue(CP_FOLDABLE).trim()) {
 			inBar.fill(true);
+			liBtn.style.display = 'none';
 		}
 
 		for (let i = 0; i < lis.length; i += 1) {
