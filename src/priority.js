@@ -2,12 +2,10 @@
  * Gida Menu - Priority
  *
  * @author Takuto Yanagida
- * @version 2022-09-24
+ * @version 2022-10-04
  */
 
-
 window['GIDA'] = window['GIDA'] ?? {};
-
 
 window['GIDA'].menu_priority = function (id = null, opts = {}) {
 	const NS         = 'gida-menu-priority';
@@ -22,6 +20,9 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 	const CLS_ACTIVE = 'active';
 	const CLS_OPENED = 'opened';
 
+	const CP_MAX_WIDTH = '--max-width';
+	const CP_FOLDABLE  = '--foldable';
+
 	const root = id ? document.getElementById(id) : document.getElementsByClassName(NS)[0];
 	if (!root) return;
 	const menuBar = root.querySelector('.menu') ?? root.getElementsByTagName('ul')[0];
@@ -29,8 +30,8 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 	const lis = Array.from(menuBar.querySelectorAll(':scope > li'));
 
 	const menuBarStyle = getComputedStyle(menuBar);
-	const autoClose    = opts['autoClose'] ?? true;
-	const reversed     = opts['reversed']  ?? false;
+	const autoClose    = opts['autoClose']      ?? true;
+	const reversed     = opts['reversed']       ?? false;
 	const btnPos       = opts['buttonPosition'] ?? 'end';  // 'start' or 'end';
 
 	const order = initOrder(lis, reversed);
@@ -183,7 +184,7 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 		const cs = getComputedStyle(p);
 		const w  = p.clientWidth - (parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight));
 
-		root.style.maxWidth = w + 'px';
+		root.style.setProperty(CP_MAX_WIDTH, `${w}px`);
 	}
 
 	function alignItems(ws, menuBar, menuPanel, lis, liBtn) {
@@ -193,6 +194,10 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 
 		const [inBar, withPanel] = calcItemPlace(barW, ws, lis, liBtn, columnGap);
 		liBtn.style.display = withPanel ? null : 'none';
+
+		if ('false' === getComputedStyle(menuBar).getPropertyValue(CP_FOLDABLE).trim()) {
+			inBar.fill(true);
+		}
 
 		for (let i = 0; i < lis.length; i += 1) {
 			if (!inBar[i]) continue;
@@ -218,7 +223,7 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 		const inBar = new Array(lis.length);
 		inBar.fill(true);
 
-		const sumW  = ws.reduce((s, v) => s + v) + (columnGap * (ws.length - 1));
+		const sumW = ws.reduce((s, v) => s + v) + (columnGap * (ws.length - 1));
 
 		if (barW < sumW) {
 			barW -= liBtn.clientWidth;

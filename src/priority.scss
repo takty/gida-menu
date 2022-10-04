@@ -2,12 +2,10 @@
  * Gida Menu - Priority
  *
  * @author Takuto Yanagida
- * @version 2022-09-26
+ * @version 2022-10-04
  */
 
-
-@use 'mixin' as *;
-
+@use 'mixin';
 
 .gida-menu-priority {
 	--bar-item-width  : unset;
@@ -32,6 +30,8 @@
 .gida-menu-priority {
 	position  : relative;
 	box-sizing: border-box;
+
+	max-width: var(--max-width, unset);
 
 	:is(*, *::before, *::after) {
 		box-sizing: inherit;
@@ -207,7 +207,7 @@
 	&.start { left : 0; }
 
 	.gida-menu-priority.pulldown & {
-		@include for-ta {
+		@include mixin.for-ta {
 			width: fit-content;
 		}
 	}
@@ -224,12 +224,12 @@
 		.gida-menu-priority.pulldown & {
 			flex-direction: column;
 		}
-		@include for-ph-o {
+		@include mixin.for-ph-o {
 			flex-direction: column;
 		}
 		min-width: 100%;
 
-		@include for-ta {
+		@include mixin.for-ta {
 			flex-wrap     : wrap;
 			flex-direction: row;
 			min-width     : unset;
