@@ -2,12 +2,10 @@
  * Gida Menu - Global
  *
  * @author Takuto Yanagida
- * @version 2022-07-20
+ * @version 2022-10-04
  */
 
-
-@import 'mixin';
-
+@use 'mixin';
 
 .gida-menu-global {
 	--bar-item-width  : unset;
@@ -273,7 +271,7 @@
 	z-index : 1000;
 
 	.gida-menu-global.pulldown & {
-		@include for-ta {
+		@include mixin.for-ta {
 			width: fit-content;
 		}
 	}
@@ -291,12 +289,12 @@
 		.gida-menu-global:not(.pulldown) & .menu {
 			flex-direction: column;
 		}
-		@include for-ph-o {
+		@include mixin.for-ph-o {
 			flex-direction: column;
 		}
 		min-width: 100%;
 
-		@include for-ta {
+		@include mixin.for-ta {
 			flex-wrap     : wrap;
 			flex-direction: row;
 			min-width     : unset;

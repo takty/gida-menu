@@ -5,7 +5,6 @@
  * @version 2022-07-07
  */
 
-
 (function () {
 
 	window['GIDA'] = window['GIDA'] ?? {};
