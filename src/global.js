@@ -107,6 +107,7 @@
 			this._defMenuItem               = opts['defaultMenuItem']           ?? null;
 			this._child                     = opts['childNav']                  ?? null;
 			this._onBeforeOpen              = opts['onBeforeOpen']              ?? null;
+			this._doOpenOnHover             = opts['doOpenOnHover']             ?? true;
 			this._doSetPanelWidth           = opts['doSetPanelWidth']           ?? false;
 			this._doSuppressCloseAfterHover = opts['doSuppressCloseAfterHover'] ?? false;
 
@@ -167,7 +168,9 @@
 			for (const it of items) {
 				it.addEventListener('click', (e) => { e.stopPropagation(); });  // For preventing auto-close
 
-				addEventListenerEnterAndStop(it,     this.createEventListenerEnter(it));
+				if (this._doOpenOnHover) {
+					addEventListenerEnterAndStop(it, this.createEventListenerEnter(it));
+				}
 				it.addEventListener('pointerdown',   this.createEventListenerDown());
 				it.addEventListener('touchstart',    this.createEventListenerTouchStart());
 				it.addEventListener('pointermove',   this.createEventListenerMove());
