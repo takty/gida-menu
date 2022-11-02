@@ -8,14 +8,14 @@
 <meta name="author" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="shortcut icon" href="">
-<link rel="stylesheet" href="css/style.min.css?v093553t">
-<link rel="stylesheet" href="css/global.min.css?v093553t">
-<script src="js/global.min.js?v093553t"></script>
+<link rel="stylesheet" href="css/style.min.css?v134842t">
+<link rel="stylesheet" href="css/global.min.css?v134842t">
+<script src="js/global.min.js?v134842t"></script>
 </head>
 <body>
 <div class="content">
 
-	<h1>Gida Menu - Global <small>v093553t</small></h1>
+	<h1>Gida Menu - Global <small>v134842t</small></h1>
 	<nav>
 		<a href="index.html">Go Back</a>
 	</nav>
@@ -60,7 +60,7 @@
 				</div>
 			</div>
 		</nav>
-		<script>GIDA.menu_global('mg0', { autoClose: true });</script>
+		<script>GIDA.menu_global('mg0', {});</script>
 	</div>
 
 	<h3>Pulldown (with popup hint)</h3>
@@ -115,10 +115,123 @@
 				</div>
 			</div>
 		</nav>
-		<script>GIDA.menu_global('mg1', { autoClose: true });</script>
+		<script>GIDA.menu_global('mg1', {});</script>
+	</div>
+
+	<h2>Popup Position (upward)</h2>
+
+	<h3>Default (with popup hint)</h3>
+	<div class="frame-global">
+		<nav id="mg2" class="gida-menu-global upward with-popup-hint" role="navigation">
+			<div class="gida-menu-global-bar">
+				<ul class="menu">
+					<li><a href="#"><div>Menu Item 1</div></a></li>
+					<li class="current"><a href="#"><div>Menu Item 2 (Current)</div></a></li>
+					<li class="menu-ancestor"><button data-panel="mg2-panel-3"><div>Menu Item 3</div></button></li>
+					<li><button data-panel="mg2-panel-4"><div>Menu Item 4</div></button></li>
+					<li><a href="#"><div>Menu Item 5</div></a></li>
+					<li><a href="#"><div>Menu Item 6</div></a></li>
+					<li><button data-panel="mg2-panel-7"><div>Menu Item 7</div></button></li>
+					<li><a href="#"><div>Menu Item 8</div></a></li>
+				</ul>
+			</div>
+			<div class="gida-menu-global-panels screen-only">
+				<div id="mg2-panel-3" class="gida-menu-global-panel">
+					<ul class="menu">
+						<li class="current"><a href="#"><div>Sub Menu Item 3-1 (Current)</div></a></li>
+						<li><a href="#"><div>Sub Menu Item 3-2</div></a></li>
+					</ul>
+				</div>
+				<div id="mg2-panel-4" class="gida-menu-global-panel">
+					<ul class="menu">
+						<li><a href="#"><div>Sub Menu Item 4-1</div><div class="description">Description text is here.</div></a></li>
+						<li><a href="#"><div>Sub Menu Item 4-2</div></a></li>
+						<li><a href="#"><div>Sub Menu Item 4-3</div></a></li>
+					</ul>
+				</div>
+				<div id="mg2-panel-7" class="gida-menu-global-panel">
+					<ul class="menu">
+						<li><a href="#"><div>Sub Menu Item 7-1</div><div class="description">Description text is here.</div></a></li>
+						<li><a href="#"><div>Sub Menu Item 7-2</div></a></li>
+						<li><a href="#"><div>Sub Menu Item 7-3</div></a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<script>GIDA.menu_global('mg2', {});</script>
+	</div>
+
+	<h3>Pulldown (with popup hint)</h3>
+	<div class="frame-global">
+		<nav id="mg3" class="gida-menu-global upward pulldown with-popup-hint" role="navigation">
+			<div class="gida-menu-global-bar">
+				<ul class="menu">
+					<li><a href="#"><div>Menu Item 1</div></a></li>
+					<li class="current"><a href="#"><div>Menu Item 2 (Current)</div></a></li>
+					<li class="menu-ancestor"><button data-panel="mg3-panel-3"><div>Menu Item 3</div></button></li>
+					<li><button data-panel="mg3-panel-4"><div>Menu Item 4</div></button></li>
+					<li><a href="#"><div>Menu Item 5</div></a></li>
+					<li><a href="#"><div>Menu Item 6</div></a></li>
+					<li><button data-panel="mg3-panel-7"><div>Menu Item 7</div></button></li>
+					<li><a href="#"><div>Menu Item 8</div></a></li>
+				</ul>
+			</div>
+			<div class="gida-menu-global-panels screen-only">
+				<div id="mg3-panel-3" class="gida-menu-global-panel">
+					<ul class="menu">
+						<li class="current"><a href="#"><div>Sub Menu Item 3-1 (Current)</div></a></li>
+						<li><a href="#"><div>Sub Menu Item 3-2</div></a></li>
+					</ul>
+				</div>
+				<div id="mg3-panel-4" class="gida-menu-global-panel">
+					<ul class="menu">
+						<li><a href="#"><div>Sub Menu Item 4-1</div></a></li>
+						<li>
+							<a href="#"><div>Sub Menu Item 4-2</div></a>
+							<ul class="menu">
+								<li><a href="#"><div>Sub Menu Item 4-2-1</div><div class="description">Description text is here.</div></a></li>
+								<li><a href="#"><div>Sub Menu Item 4-2-2</div></a></li>
+								<li><a href="#"><div>Sub Menu Item 4-2-3</div></a></li>
+							</ul>
+						</li>
+						<li><a href="#"><div>Sub Menu Item 4-3</div></a></li>
+					</ul>
+				</div>
+				<div id="mg3-panel-7" class="gida-menu-global-panel">
+					<ul class="menu">
+						<li><a href="#"><div>Sub Menu Item 7-1</div></a></li>
+						<li>
+							<a href="#"><div>Sub Menu Item 7-2</div></a>
+							<ul class="menu">
+								<li><a href="#"><div>Sub Menu Item 7-2-1</div><div class="description">Description text is here.</div></a></li>
+								<li><a href="#"><div>Sub Menu Item 7-2-2</div></a></li>
+								<li><a href="#"><div>Sub Menu Item 7-2-3</div></a></li>
+							</ul>
+						</li>
+						<li><a href="#"><div>Sub Menu Item 7-3</div></a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<script>GIDA.menu_global('mg3', {});</script>
 	</div>
 
 	<h2>Options</h2>
+
+	<h3>CSS Class Options</h3>
+
+	<dl>
+		<dt><code>pulldown</code></dt>
+		<dd>Style panels as a pulldown menu.</dd>
+		<dt><code>upward</code></dt>
+		<dd>Place panels above the bar.</dd>
+		<dt><code>overflow-scroll</code></dt>
+		<dd>Show scroll bar when the window height is lesser than a panel height.</dd>
+		<dt><code>with-popup-hint</code></dt>
+		<dd>Show small triangles as popup hints. (Simply as a style.)</dd>
+	</dl>
+
+	<h3>JS Options</h3>
 
 	<pre><code>
 {
@@ -128,7 +241,8 @@
     defaultMenuItem          : null,
     childNav                 : null,
     onBeforeOpen             : null,
-	doSetPanelWidth          : false,
+    doOpenOnHover            : true,
+    doSetPanelWidth          : false,
     doSuppressCloseAfterHover: false,
 }
 	</code></pre>

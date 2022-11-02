@@ -2,7 +2,7 @@
  * Styles for Sample
  *
  * @author Takuto Yanagida
- * @version 2022-09-22
+ * @version 2022-11-02
  */
 
 @use "sass:math";
@@ -37,6 +37,14 @@ h3 {
 pre {
 	margin: 0;
 	overflow-x: auto;
+}
+
+dt {
+	font-weight: bold;
+
+	dd + & {
+		margin-block-start: 0.5rem;
+	}
 }
 
 .content {
