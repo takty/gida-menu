@@ -2,7 +2,7 @@
  * Gida Menu - Global
  *
  * @author Takuto Yanagida
- * @version 2022-11-02
+ * @version 2022-10-04
  */
 
 @use 'mixin';
@@ -205,7 +205,6 @@
 }
 
 .gida-menu-global.with-popup-hint .gida-menu-global-bar {
-
 	.menu > li {
 		> :is(/**/label,/**/ button) {
 			position: relative;
@@ -216,10 +215,19 @@
 				width   : 0.5rem;
 				height  : 0.5rem;
 				left    : calc(50% - 0.25rem);
-				bottom  : 0.15rem;
 
 				clip-path : var(--bar-mark-path);
 				box-shadow: 0 0 1rem var(--bar-mark-color) inset;
+			}
+		}
+	}
+}
+
+.gida-menu-global.with-popup-hint:not(.upward) .gida-menu-global-bar {
+	.menu > li {
+		> :is(/**/label,/**/ button) {
+			&::after {
+				bottom: 0.15rem;
 			}
 		}
 
@@ -233,12 +241,47 @@
 	}
 }
 
+.gida-menu-global.with-popup-hint.upward .gida-menu-global-bar {
+	.menu > li {
+		> :is(/**/label,/**/ button) {
+			&::after {
+				top      : 0.15rem;
+				transform: rotate(180deg);
+			}
+		}
+
+		&.opened {
+			> :is(/**/label,/**/ button) {
+				&::after {
+					transform: scaleY(1);
+				}
+			}
+		}
+	}
+}
+
 
 // -----------------------------------------------------------------------------
 
 
 .gida-menu-global-panels {
-	position: relative;
+	position    : absolute;
+	inset-inline: 0;
+
+	.gida-menu-global:not(.upward) & {
+		inset-block: auto 0;
+
+		.gida-menu-global-panel {
+			top: 100%;
+		}
+	}
+	.gida-menu-global.upward & {
+		inset-block: 0 auto;
+
+		.gida-menu-global-panel {
+			bottom: 100%;
+		}
+	}
 }
 
 
@@ -261,14 +304,17 @@
 	&:not(.active).opened {
 		transition: opacity 0.15s 0.1s;
 	}
+
+	.gida-menu-global.overflow-scroll & {
+		max-height: var(--visible-height, unset);
+		overflow-y: scroll;
+	}
 }
 
 .gida-menu-global-panel {
-	position: absolute;
-	top     : 0;
-	left    : 0;
-	right   : 0;
-	z-index : 1000;
+	position    : absolute;
+	inset-inline: 0;
+	z-index     : 1000;
 
 	.gida-menu-global.pulldown & {
 		@include mixin.for-ta {

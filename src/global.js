@@ -2,7 +2,7 @@
  * Gida Menu - Global
  *
  * @author Takuto Yanagida
- * @version 2022-07-07
+ * @version 2022-11-02
  */
 
 (function () {
@@ -61,6 +61,10 @@
 		static SEL_NAV_PANEL_PARENT = '.gida-menu-global-panels';
 		static SEL_NAV_CLOSER       = '.gida-menu-global-closer';
 
+		static CLS_PULLDOWN        = 'pulldown';
+		static CLS_UPWARD          = 'upward';
+		static CLS_OVERFLOW_SCROLL = 'overflow-scroll';
+
 		static CLS_CURRENT       = 'current';
 		static CLS_MENU_ANCESTOR = 'menu-ancestor';
 		static CLS_PAGE_ANCESTOR = 'page-ancestor';
@@ -70,7 +74,7 @@
 		static CLS_ACTIVE = 'active';
 		static CLS_OPENED = 'opened';
 
-		static CLS_HOVER_ANCESTOR  = 'hover-ancestor';
+		static CLS_HOVER_ANCESTOR = 'hover-ancestor';
 
 		constructor(id, opts) {
 			this._root = id ? document.getElementById(id) : document.querySelector('.gida-menu-global');
@@ -92,7 +96,10 @@
 			const menuItems   = this._root.querySelectorAll('.menu > li');
 			const popupItems  = this._bar.querySelectorAll('button[data-panel]' + /**/', label[for]'/**/);
 			this._panelParent = this._root.querySelector(GlobalNav.SEL_NAV_PANEL_PARENT);
-			this._isPulldown  = this._root.classList.contains('pulldown');
+
+			this._isPulldown       = this._root.classList.contains(GlobalNav.CLS_PULLDOWN);
+			this._isUpward         = this._root.classList.contains(GlobalNav.CLS_UPWARD);
+			this._isOverflowScroll = this._root.classList.contains(GlobalNav.CLS_OVERFLOW_SCROLL);
 
 			const autoClose                 = opts['autoClose']                 ?? true;
 			const autoScroll                = opts['autoScroll']                ?? true;
@@ -332,6 +339,7 @@
 					p.focus();
 				}
 				if (this._isPulldown) this.alignPanel(item, p);
+				if (this._isOverflowScroll) this.assignVisibleHeight(item, p);
 				if (this._onBeforeOpen) this._onBeforeOpen(item, p);
 			}, 0);
 			this._openItem        = item;
@@ -415,6 +423,23 @@
 			panel.style.right    = alignRight ? '0px'   : 'unset';
 			if (this._doSetPanelWidth) {
 				panel.style.minWidth = (bcrI.right - bcrI.left) + 'px';
+			}
+		}
+
+		assignVisibleHeight(item, panel) {
+			if (!panel) return;
+			const h = window.innerHeight;
+
+			let spt = parseInt(document.documentElement.style.scrollPaddingTop, 10);
+			spt = isNaN(spt) ? 0 : spt;
+
+			panel.style.setProperty('--visible-height', null);
+
+			const bcrI = item.getBoundingClientRect();
+			const bcrP = panel.getBoundingClientRect();
+
+			if (h - bcrI.height - spt < bcrP.height) {
+				panel.style.setProperty('--visible-height', `${h - bcrI.height - spt}px`);
 			}
 		}
 
