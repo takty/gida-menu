@@ -136,6 +136,7 @@
 				const mis = this._bar.querySelectorAll('a, button[data-panel]' + /**/', label[for]'/**/);
 				this.initializeAutoScroll(mis);
 			}
+			this.initializeScroller();
 
 			const closers = this._root.querySelectorAll(GlobalNav.SEL_NAV_CLOSER);
 			for (const c of closers) {
@@ -153,15 +154,18 @@
 					this.ensureInView(mi);
 				}
 			}
-			const left  = document.createElement('div');
-			const right = document.createElement('div');
-			left.classList.add('scroll-left');
-			right.classList.add('scroll-right');
-			this._bar.insertBefore(left, this._bar.firstChild);
-			this._bar.appendChild(right);
+		}
 
-			this.addScrollerEventListener(left, -48);
-			this.addScrollerEventListener(right, 48);
+		initializeScroller() {
+			const sl = document.createElement('div');
+			const sr = document.createElement('div');
+			sl.classList.add('scroll-left');
+			sr.classList.add('scroll-right');
+			this._bar.insertBefore(sl, this._bar.firstChild);
+			this._bar.appendChild(sr);
+
+			this.addScrollerEventListener(sl, -48);
+			this.addScrollerEventListener(sr, 48);
 		}
 
 		addClickStateEventListener(items) {
