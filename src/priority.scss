@@ -2,7 +2,7 @@
  * Gida Menu - Priority
  *
  * @author Takuto Yanagida
- * @version 2022-10-04
+ * @version 2022-11-02
  */
 
 @use 'mixin';
@@ -175,28 +175,28 @@
 
 .gida-menu-priority-panels {
 	position: relative;
-
-	.gida-menu-priority-panel {
-		display: none;
-		&:is(.active, .opened) {
-			display: block;
-		}
-
-		opacity: 0;
-
-		&.active.opened {
-			opacity   : 1;
-			transition: opacity 0.20s;
-		}
-		&:not(.active).opened {
-			transition: opacity 0.15s 0.1s;
-		}
-	}
 }
 
 
 // -----------------------------------------------------------------------------
 
+
+.gida-menu-priority-panel {
+	display: none;
+	&:is(.active, .opened) {
+		display: block;
+	}
+
+	opacity: 0;
+
+	&.active.opened {
+		opacity   : 1;
+		transition: opacity 0.20s;
+	}
+	&:not(.active).opened {
+		transition: opacity 0.15s 0.1s;
+	}
+}
 
 .gida-menu-priority-panel {
 	position: absolute;

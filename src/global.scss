@@ -2,7 +2,7 @@
  * Gida Menu - Global
  *
  * @author Takuto Yanagida
- * @version 2022-10-04
+ * @version 2022-11-02
  */
 
 @use 'mixin';
@@ -239,29 +239,29 @@
 
 .gida-menu-global-panels {
 	position: relative;
-
-	.gida-menu-global-panel {
-		display: none;
-		&:is(.active, .opened) {
-			display: block;
-		}
-
-		opacity: 0;
-
-		&.active.opened {
-			opacity   : 1;
-			transition: opacity 0.20s;
-			z-index   : 1001;
-		}
-		&:not(.active).opened {
-			transition: opacity 0.15s 0.1s;
-		}
-	}
 }
 
 
 // -----------------------------------------------------------------------------
 
+
+.gida-menu-global-panel {
+	display: none;
+	&:is(.active, .opened) {
+		display: block;
+	}
+
+	opacity: 0;
+
+	&.active.opened {
+		opacity   : 1;
+		transition: opacity 0.20s;
+		z-index   : 1001;
+	}
+	&:not(.active).opened {
+		transition: opacity 0.15s 0.1s;
+	}
+}
 
 .gida-menu-global-panel {
 	position: absolute;
