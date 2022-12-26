@@ -2,7 +2,7 @@
  * Common Functions
  *
  * @author Takuto Yanagida
- * @version 2022-06-01
+ * @version 2022-12-26
  */
 
 
@@ -37,6 +37,7 @@ function initializeScrollableDetection() {
 		rob.observe(tar);
 		tar.addEventListener('scroll', throttle(() => { detectScrollable(tar); }));
 	}
+	scrollableDetectionTargets.length = 0;
 }
 
 function detectScrollable(elm) {
@@ -93,6 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	window.addEventListener('resize', () => { for (const l of resizeListeners) l(); }, { passive: true });
 	window.addEventListener('scroll', () => { for (const l of scrollListeners) l(); }, { passive: true });
 	initializeScrollableDetection();
+	window.addEventListener('load', initializeScrollableDetection);
 });
 
 function throttle(fn) {
