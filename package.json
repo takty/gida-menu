@@ -25,8 +25,8 @@
 		"not dead"
 	],
 	"dependencies": {
-		"@babel/core": "^7.20.7",
-		"@babel/preset-env": "^7.20.2",
+		"@babel/core": "^7.21.4",
+		"@babel/preset-env": "^7.21.4",
 		"gulp": "^4.0.2",
 		"gulp-autoprefixer": "^8.0.0",
 		"gulp-babel": "^8.0.0",
@@ -36,11 +36,11 @@
 		"gulp-rename": "^2.0.0",
 		"gulp-sass": "^5.1.0",
 		"gulp-terser": "^2.1.0",
-		"sass": "^1.57.1"
+		"sass": "^1.60.0"
 	},
 	"devDependencies": {
 		"gulp-ignore": "^3.0.0",
 		"gulp-replace": "^1.1.4",
-		"luxon": "^3.1.1"
+		"luxon": "^3.3.0"
 	}
 }
