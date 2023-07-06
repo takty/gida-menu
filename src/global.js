@@ -2,7 +2,7 @@
  * Gida Menu - Global
  *
  * @author Takuto Yanagida
- * @version 2022-11-02
+ * @version 2023-07-06
  */
 
 (function () {
@@ -228,7 +228,7 @@
 				const bcr = openPanel.getBoundingClientRect();
 				if (
 					bcr.bottom < 0 ||  // When not fixed
-					(0 < bcr.top && bcr.bottom < Math.abs(window.pageYOffset - this._scrollTop))  // When fixed
+					(0 < bcr.top && bcr.bottom < Math.abs(window.scrollY - this._scrollTop))  // When fixed
 				) {
 					this.closeAll();
 					this.cancelTimeout();
@@ -351,7 +351,7 @@
 			}, 0);
 			this._openItem        = item;
 			this._openTime        = new Date().getTime();
-			this._scrollTop       = window.pageYOffset;
+			this._scrollTop       = window.scrollY;
 			this._isOpenedByHover = isOpenedByHover;
 		}
 
