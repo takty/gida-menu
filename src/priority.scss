@@ -2,7 +2,7 @@
  * Gida Menu - Priority
  *
  * @author Takuto Yanagida
- * @version 2022-11-02
+ * @version 2023-07-06
  */
 
 @use 'mixin';
@@ -17,7 +17,7 @@
 
 	--panel-offset      : 0.25rem;
 	--panel-bg-color    : #fff;
-	--panel-shadow      : 0 4px 8px 0 rgba(0, 0, 0, 0.25);
+	--panel-shadow      : 0 4px 8px 0 #0004;
 	--panel-item-width  : unset;
 	--panel-item-height : 3rem;
 	--panel-item-padding: 0.25rem 1rem;
@@ -33,13 +33,13 @@
 
 	max-width: var(--max-width, unset);
 
-	:is(*, *::before, *::after) {
+	:where(*, *::before, *::after) {
 		box-sizing: inherit;
 		margin    : 0;
 		padding   : 0;
 	}
 
-	:is(li, a, button) {
+	:where(li, li > *:first-child) {
 		transition-duration: 0.2s;
 		transition-property: color, background-color;
 
@@ -49,7 +49,7 @@
 		}
 	}
 
-	:is(a, button) {
+	:where(li > *:first-child) {
 		user-select: none;
 	}
 
@@ -58,18 +58,20 @@
 	}
 
 	button {
-		appearance: none;
-		border    : inherit;
-		background: inherit;
-		color     : inherit;
-		font      : inherit;
+		appearance   : none;
+		padding      : 0;
+		border-radius: 0;
+		border       : inherit;
+		background   : inherit;
+		font         : inherit;
+		color        : inherit;
 	}
 
 	ul {
 		list-style-type: none;
 	}
 
-	li label {
+	li > *:not(a) {
 		display: none;
 	}
 
@@ -102,17 +104,16 @@
 
 
 .gida-menu-priority-bar {
-
 	.menu {  // ul
 		display  : inline-flex;
 		flex-wrap: nowrap;
 	}
 
-	.menu > li {
+	li {
 		position : relative;
 		flex-grow: 1;
 
-		> :is(a, button) {
+		> *:first-child {
 			display        : flex;
 			align-items    : center;
 			justify-content: center;
@@ -125,9 +126,9 @@
 			white-space: nowrap;
 		}
 
-		&.current {
-			:is(a, button) {
-				pointer-events : none;
+		&:where(.current) {
+			> *:first-child {
+				pointer-events: none;
 			}
 		}
 
@@ -142,9 +143,8 @@
 	}
 }
 
-.gida-menu-priority.with-popup-hint .gida-menu-priority-bar {
-
-	.menu > li {
+:where(.gida-menu-priority.with-popup-hint) .gida-menu-priority-bar {
+	li {
 		.gida-menu-priority-button {
 			position: relative;
 
@@ -183,62 +183,47 @@
 
 .gida-menu-priority-panel {
 	display: none;
-	&:is(.active, .opened) {
+	&:where(.active, .opened) {
 		display: block;
 	}
-
 	opacity: 0;
 
-	&.active.opened {
+	&:where(.active.opened) {
 		opacity   : 1;
 		transition: opacity 0.20s;
 	}
-	&:not(.active).opened {
+	&:where(:not(.active).opened) {
 		transition: opacity 0.15s 0.1s;
 	}
 }
 
 .gida-menu-priority-panel {
-	position: absolute;
-	top     : 0;
-	z-index : 1000;
+	position         : absolute;
+	inset-block-start: 0;
+	z-index          : 1000;
 
-	&.end   { right: 0; }
-	&.start { left : 0; }
-
-	.gida-menu-priority.pulldown & {
-		@include mixin.for-ta {
-			width: fit-content;
-		}
-	}
+	&.end   { inset-inline-end  : 0; }
+	&.start { inset-inline-start: 0; }
 
 	background-color: var(--panel-bg-color);
 	box-shadow      : var(--panel-shadow);
 
-	> .menu {  // ul
+	.menu {  // ul
 		margin: auto;
 
 		display        : flex;
 		justify-content: center;
-
-		.gida-menu-priority.pulldown & {
-			flex-direction: column;
-		}
-		@include mixin.for-ph-o {
-			flex-direction: column;
-		}
-		min-width: 100%;
+		flex-direction : column;
+		min-width      : 100%;
 
 		@include mixin.for-ta {
-			flex-wrap     : wrap;
 			flex-direction: row;
+			flex-wrap     : wrap;
 			min-width     : unset;
 		}
 	}
 
-	> .menu > li {
-		position: relative;
-
+	li {
 		a {
 			display        : flex;
 			align-items    : center;
@@ -250,19 +235,25 @@
 			min-height: var(--panel-item-height);
 			padding   : var(--panel-item-padding);
 
-			> div {
+			:where(div, span) {
 				display   : inline-block;
 				text-align: left;
 			}
-			span {
-				display: inline-block;
-			}
 		}
 
-		&.current {
+		&:where(.current) {
 			> a {
 				pointer-events : none;
 			}
 		}
+	}
+}
+
+:where(.gida-menu-priority.pulldown) .gida-menu-priority-panel {
+	@include mixin.for-ta {
+		width: fit-content;
+	}
+	.menu {  // ul
+		flex-direction: column;
 	}
 }
