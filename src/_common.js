@@ -2,17 +2,10 @@
  * Common Functions
  *
  * @author Takuto Yanagida
- * @version 2022-12-26
+ * @version 2023-07-06
  */
 
-
-const resizeListeners = [];
 const scrollListeners = [];
-
-function onResize(fn, doFirst = false) {
-	if (doFirst) fn();
-	resizeListeners.push(throttle(fn));
-}
 
 function onScroll(fn, doFirst = false) {
 	if (doFirst) fn();
@@ -91,7 +84,6 @@ function addHoverStateEventListener(items, clsCurrent, clsHover, root = null, cl
 
 
 document.addEventListener('DOMContentLoaded', () => {
-	window.addEventListener('resize', () => { for (const l of resizeListeners) l(); }, { passive: true });
 	window.addEventListener('scroll', () => { for (const l of scrollListeners) l(); }, { passive: true });
 	initializeScrollableDetection();
 	window.addEventListener('load', initializeScrollableDetection);

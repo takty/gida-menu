@@ -77,11 +77,15 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 		columnGap = parseInt(menuBarStyle.columnGap, 10);
 		columnGap = Number.isNaN(columnGap) ? 0 : columnGap;
 		alignItems(ws, menuBar, menuPanel, lis, liBtn);
-		onResize(() => {
-			close(liBtn, panel);
-			setMaxWidth(root);
-			alignItems(ws, menuBar, menuPanel, lis, liBtn);
+		const rob = new ResizeObserver(() => {
+			requestAnimationFrame(() => {
+				close(liBtn, panel);
+				setMaxWidth(root);
+				alignItems(ws, menuBar, menuPanel, lis, liBtn);
+			});
 		});
+		rob.observe(root);
+		rob.observe(root.parentElement);
 	}, 10);
 	setTimeout(() => { root.classList.add(CLS_READY); }, 100);
 
@@ -183,13 +187,12 @@ window['GIDA'].menu_priority = function (id = null, opts = {}) {
 		const p  = root.parentElement;
 		const cs = getComputedStyle(p);
 		const w  = p.clientWidth - (parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight));
-
-		root.style.setProperty(CP_MAX_WIDTH, `${w}px`);
+		root.style.setProperty(CP_MAX_WIDTH, `${Math.floor(w)}px`);
 	}
 
 	function alignItems(ws, menuBar, menuPanel, lis, liBtn) {
 		menuBar.style.width = '0';
-		let barW = menuBar.parentElement.getBoundingClientRect().width;
+		const barW = Math.floor(menuBar.parentElement.getBoundingClientRect().width);
 		menuBar.style.width = null;
 
 		const [inBar, withPanel] = calcItemPlace(barW, ws, lis, liBtn, columnGap);
