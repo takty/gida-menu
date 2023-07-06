@@ -2,7 +2,7 @@
  * Styles for Sample
  *
  * @author Takuto Yanagida
- * @version 2022-11-02
+ * @version 2023-07-06
  */
 
 @use "sass:math";
@@ -67,7 +67,7 @@ dt {
 		background-color: #edf;
 	}
 
-	.hover:not(.hover-ancestor) > :is(a, button) {
+	.hover:not(.hover-ancestor) > *:first-child:is(a, button, label) {
 		background-color: #eee;
 	}
 
